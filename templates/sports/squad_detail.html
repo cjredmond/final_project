@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 <a href="{% url 'league_detail_view' user.squad.league.id %}">League</a>
-<h1>Your Teams</h1>
-{% for team in your_teams %}
-{{ team.sport }}{{ team }}<a href="{% url 'team_update_view' team.id %}">Drop</a><br>
+<h1>{{ squad.name }}</h1>
+
+{% for team in squad.roster.all %}
+{{ team }}<br>
 {% endfor %}
+
+<a href="{% url 'squad_update_view' squad.id %}">Draft</a>
+
 
 <div class="row">
   <div class="col s12">

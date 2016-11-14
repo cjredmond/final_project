@@ -18,7 +18,7 @@ class League(models.Model):
         with open('6teams.csv') as infile:
             reader = csv.reader(infile)
             for row in reader:
-                Matchup.objects.create(week=row[0], home=squads.get(sched_id=row[1]),
+                Matchup.objects.create(league=self,week=row[0], home=squads.get(sched_id=row[1]),
                 away=squads.get(sched_id=row[2]))
 
     @property
@@ -26,13 +26,13 @@ class League(models.Model):
         return self.squad_set.all()
 
 
-@receiver(post_save, sender=League)
-def create(**kwargs):
-    created = kwargs['created']
-    instance = kwargs['instance']
-    teams = Team.objects.filter(league=None)
-    for team in teams:
-        Team.objects.create(city=team.city, name=team.name, league=instance, sport=team.sport, pts_last=team.pts_last, pts_proj=team.pts_proj)
+# @receiver(post_save, sender=League)
+# def create(**kwargs):
+#     created = kwargs['created']
+#     instance = kwargs['instance']
+#     teams = Team.objects.filter(league=None)
+#     for team in teams:
+#         Team.objects.create(city=team.city, name=team.name, league=instance, sport=team.sport, pts_last=team.pts_last, pts_proj=team.pts_proj)
 
 SPORTS = [('f', 'football'), ('b', 'baseball'), ('k', 'basketball')]
 class Team(models.Model):
@@ -72,24 +72,26 @@ class Squad(models.Model):
 
     def __str__(self):
         return self.name
-    @property
-    def total_proj(self):
-        teams = self.team_set.all()
-        score = 0
-        for team in teams:
-            score = score + team.pts_proj
-        return score
+    # def scorer(self,week):
+    #     x = self.roster.all()
+    #     score = 0
+    #     for team in x:
+    #         score += team.week_1
+    #     return score
 
 
-    def checker(self, sport):
-        teams = self.team_set.all()
-        count = 0
-        for team in teams:
-            if team.sport == sport:
-                count += 1
-        if count > 2:
-            return False
-        return True
+    # def week_score(self,week):
+
+
+    # def checker(self, sport):
+    #     teams = self.team_set.all()
+    #     count = 0
+    #     for team in teams:
+    #         if team.sport == sport:
+    #             count += 1
+    #     if count > 2:
+    #         return False
+    #     return True
 
 class Matchup(models.Model):
     league = models.ForeignKey(League)
@@ -103,6 +105,19 @@ class Matchup(models.Model):
         return (str(self.home) + " vs " + str(self.away))
 
     @property
+    def home_score_calc(self):
+        home_roster = self.home.roster.all()
+        score = 0
+        for x in home_roster:
+            score += x.week_1
+        return score
+    def away_score_calc(self):
+        away_roster = self.away.roster.all()
+        score = 0
+        for x in away_roster:
+            score += x.week_1
+        return score
+
     def winner(self):
         if home_score >= away_score:
             return home

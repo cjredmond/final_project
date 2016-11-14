@@ -49,17 +49,14 @@ class LeagueDetailView(DetailView):
     model = League
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
-        baseball = Team.objects.filter(sport="b", league=self.kwargs['pk'])
-        football = Team.objects.filter(sport="f", league=self.kwargs['pk'])
-        basketball = Team.objects.filter(sport="k", league=self.kwargs['pk'])
+        baseball = Team.objects.filter(sport="b")
+        football = Team.objects.filter(sport="f")
+        basketball = Team.objects.filter(sport="k")
         squads = Squad.objects.filter(league=self.kwargs['pk'])
         schedule = Matchup.objects.filter(league=self.kwargs['pk'])
         context['schedule'] = schedule
         context['squads'] = squads
-        context['standings'] = sorted(squads, key=lambda t: -t.total_proj)
-        context['baseball'] = baseball
-        context['football'] = football
-        context['basketball'] = basketball
+        # context['standings'] = sorted(squads, key=lambda t: -t.total_proj)
         return context
 
 class SquadDetailView(DetailView):
@@ -67,14 +64,13 @@ class SquadDetailView(DetailView):
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
         target = Squad.objects.get(id=self.kwargs['pk'])
-        baseball = Team.objects.filter(sport="b", league=target.league, squad=None)
-        football = Team.objects.filter(sport="f", league=target.league, squad=None)
-        basketball = Team.objects.filter(sport="k", league=target.league, squad=None)
-        your_teams = Team.objects.filter(squad = target)
-        context['baseball_checker'] = target.checker('b')
-        context['football_checker'] = target.checker('f')
-        context['basketball_checker'] = target.checker('k')
-        context['your_teams'] = your_teams
+        baseball = Team.objects.filter(sport="b", squad=None)
+        football = Team.objects.filter(sport="f", squad=None)
+        basketball = Team.objects.filter(sport="k", squad=None)
+        # context['baseball_checker'] = target.checker('b')
+        # context['football_checker'] = target.checker('f')
+        # context['basketball_checker'] = target.checker('k')
+        # context['your_teams'] = your_teams
         context['baseball'] = baseball.order_by('-pts_proj')
         context['football'] = football.order_by('-pts_proj')
         context['basketball'] = basketball.order_by('-pts_proj')
@@ -99,5 +95,16 @@ class MatchupDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+        target = Matchup.objects.get(id=self.kwargs['pk'])
+        context['home_score'] = target.home_score_calc
+        context['away_score'] = target.away_score_calc
+
         return context
+
+class SquadUpdateView(UpdateView):
+    model = Squad
+    fields = ('roster',)
+    success_url = "/"
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        return super().form_valid(form)
