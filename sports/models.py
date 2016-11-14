@@ -12,12 +12,7 @@ class League(models.Model):
     def __str__(self):
         return str(self.id)
 
-    def schedule(self):
-        squads = self.get_squads
-        count = 1
-        for squad in squads:
-            squad.sched_id = count
-            count += 1
+    def schedule(self,squads):
         with open('6teams.csv') as infile:
             reader = csv.reader(infile)
             for row in reader:
@@ -27,8 +22,7 @@ class League(models.Model):
     @property
     def get_squads(self):
         return self.squad_set.all()
-    def get_active_teams(self):
-        return self.team_set.all()
+
 
 @receiver(post_save, sender=League)
 def create(**kwargs):
@@ -85,3 +79,6 @@ class Matchup(models.Model):
     week = models.IntegerField()
     home = models.ForeignKey(Squad, related_name='home')
     away = models.ForeignKey(Squad, related_name='away')
+
+    def __str__(self):
+        return (str(self.home) + " vs " + str(self.away))
