@@ -6,13 +6,15 @@ import csv
 class League(models.Model):
     name = models.CharField(max_length=40)
     limit = models.IntegerField()
-    players = models.ManyToManyField('auth.User')
+    player = models.ManyToManyField('auth.User')
     live = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.name)
 
     def schedule(self,squads):
+        ##https://github.com/taddeimania/tfb/tree/master/utility/schedules
+        ##-JoelTaddei
         with open('6teams.csv') as infile:
             reader = csv.reader(infile)
             for row in reader:
@@ -32,11 +34,41 @@ def create(**kwargs):
     for team in teams:
         Team.objects.create(city=team.city, name=team.name, league=instance, sport=team.sport, pts_last=team.pts_last, pts_proj=team.pts_proj)
 
+SPORTS = [('f', 'football'), ('b', 'baseball'), ('k', 'basketball')]
+class Team(models.Model):
+    city = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    logo = models.FileField(null=True,blank=True)
+    sport = models.CharField(max_length=1,choices=SPORTS)
+    pts_last = models.IntegerField()
+    pts_proj = models.IntegerField()
+    week_1 = models.IntegerField()
+    week_2 = models.IntegerField()
+    week_3 = models.IntegerField()
+    week_4 = models.IntegerField()
+    week_5 = models.IntegerField()
+    week_6 = models.IntegerField()
+    week_7 = models.IntegerField()
+    week_8 = models.IntegerField()
+    week_9 = models.IntegerField()
+    week_10 = models.IntegerField()
+    week_11 = models.IntegerField()
+    week_12 = models.IntegerField()
+    week_13 = models.IntegerField()
+    week_14 = models.IntegerField()
+    week_15 = models.IntegerField()
+    week_16 = models.IntegerField()
+    week_17 = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
 class Squad(models.Model):
     user = models.OneToOneField('auth.User')
     name = models.CharField(max_length=40)
     league = models.ForeignKey(League)
     sched_id = models.IntegerField(null=True,blank=True)
+    roster = models.ManyToManyField(Team, blank=True)
 
     def __str__(self):
         return self.name
@@ -59,26 +91,19 @@ class Squad(models.Model):
             return False
         return True
 
-
-SPORTS = [('f', 'football'), ('b', 'baseball'), ('k', 'basketball')]
-class Team(models.Model):
-    city = models.CharField(max_length=50)
-    name = models.CharField(max_length=50)
-    squad = models.ForeignKey(Squad,null=True,blank=True)
-    league = models.ForeignKey(League,null=True,blank=True)
-    logo = models.FileField(null=True,blank=True)
-    sport = models.CharField(max_length=1,choices=SPORTS)
-    pts_last = models.IntegerField()
-    pts_proj = models.IntegerField()
-    #base = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.name
-
 class Matchup(models.Model):
+    league = models.ForeignKey(League)
     week = models.IntegerField()
     home = models.ForeignKey(Squad, related_name='home')
     away = models.ForeignKey(Squad, related_name='away')
+    home_score = models.IntegerField(default=0)
+    away_score = models.IntegerField(default=0)
 
     def __str__(self):
         return (str(self.home) + " vs " + str(self.away))
+
+    @property
+    def winner(self):
+        if home_score >= away_score:
+            return home
+        return away

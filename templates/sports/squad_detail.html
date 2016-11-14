@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href="{% url 'league_detail_view' user.squad.league.id %}">League</a>
+<h1>Your Teams</h1>
+{% for team in your_teams %}
+{{ team.sport }}{{ team }}<a href="{% url 'team_update_view' team.id %}">Drop</a><br>
+{% endfor %}
+
+<div class="row">
+  <div class="col s12">
+    <ul class="tabs">
+      <li class="tab col s3"><a href="#test1">Baseball</a></li>
+      <li class="tab col s3"><a class="active" href="#test2">Football</a></li>
+      <li class="tab col s3"><a href="#test3">Basketball</a></li>
+    </ul>
+  </div>
+  <div id="test1" class="col s12">
+    <h2>Baseball</h2>
+    {% for team in baseball %}
+    {{team}} -{{team.pts_proj}}
+    {% if baseball_checker %}
+    <a href="{% url 'team_update_view' team.id %}">Pick Up</a>
+    {% endif %}
+    <br>
+    {% endfor %}
+  </div>
+  <div id="test2" class="col s12">
+      <h2>Football</h2>
+      {% for team in football %}
+      {{team}} -{{team.pts_proj}}
+      {% if football_checker %}
+      <a href="{% url 'team_update_view' team.id %}">Pick Up</a>
+      {% endif %}
+      <br>
+      {% endfor %}</div>
+  <div id="test3" class="col s12">
+      <h2>Basketball</h2>
+      {% for team in basketball %}
+      {{team}} -{{team.pts_proj}}
+      {% if basketball_checker %}
+      <a href="{% url 'team_update_view' team.id %}">Pick Up</a>
+      {% endif %}
+      <br>
+      {% endfor %}</div>
+</div>
+
+
+{% endblock %}
+
+{% block extrascript %}
+<script type="text/javascript">
+$(document).ready(function(){
+  $('ul.tabs').tabs();
+});
+</script>
+{% endblock %}

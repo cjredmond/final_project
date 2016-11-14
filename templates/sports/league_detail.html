@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if not league.live == True %}
+<a href="{% url 'league_update_view' league.id %}">Start!</a>
+{% endif %}
+<a href="{% url 'index_view' %}">Index</a>
+{% for squad in squads %}
+{% if squad.user == request.user %}
+<a href="{% url 'squad_detail_view' squad.id %}">Team</a>
+{% endif %}
+{% endfor %}
+
+<div class="row">
+  <div class="col m6">
+    {% for game in schedule %}
+    {{ game }}<br>
+    {% endfor %}
+  </div>
+  <div class="col m6">
+    {% for team in standings %}
+    {{ team }} - {{ team.total_proj }}<br>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+
+{% endblock %}
