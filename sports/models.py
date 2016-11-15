@@ -39,15 +39,7 @@ class League(models.Model):
         return self.squad_set.all()
 
 
-# @receiver(post_save, sender=League)
-# def create(**kwargs):
-#     created = kwargs['created']
-#     instance = kwargs['instance']
-#     teams = Team.objects.filter(league=None)
-#     for team in teams:
-#         Team.objects.create(city=team.city, name=team.name, league=instance, sport=team.sport, pts_last=team.pts_last, pts_proj=team.pts_proj)
-
-SPORTS = [('f', 'football'), ('b', 'baseball'), ('k', 'basketball')]
+SPORTS = [('f', 'football'), ('b', 'baseball'), ('k', 'basketball'), ('h', 'hockey'), ('s', 'soccer')]
 class Team(models.Model):
     city = models.CharField(max_length=50)
     name = models.CharField(max_length=50)
@@ -55,26 +47,14 @@ class Team(models.Model):
     sport = models.CharField(max_length=1,choices=SPORTS)
     pts_last = models.IntegerField()
     pts_proj = models.IntegerField()
-    week_1 = models.IntegerField()
-    week_2 = models.IntegerField()
-    week_3 = models.IntegerField()
-    week_4 = models.IntegerField()
-    week_5 = models.IntegerField()
-    week_6 = models.IntegerField()
-    week_7 = models.IntegerField()
-    week_8 = models.IntegerField()
-    week_9 = models.IntegerField()
-    week_10 = models.IntegerField()
-    week_11 = models.IntegerField()
-    week_12 = models.IntegerField()
-    week_13 = models.IntegerField()
-    week_14 = models.IntegerField()
-    week_15 = models.IntegerField()
-    week_16 = models.IntegerField()
-    week_17 = models.IntegerField()
 
     def __str__(self):
         return self.name
+
+class Score(models.Model):
+    pts = models.FloatField(null=True)
+    team = models.ForeignKey(Team)
+    time = models.DateTimeField(auto_now_add=True)
 
 class Squad(models.Model):
     user = models.OneToOneField('auth.User')
@@ -85,15 +65,6 @@ class Squad(models.Model):
 
     def __str__(self):
         return self.name
-    # def scorer(self,week):
-    #     x = self.roster.all()
-    #     score = 0
-    #     for team in x:
-    #         score += team.week_1
-    #     return score
-
-
-    # def week_score(self,week):
 
     def checker(self, sport):
         teams = self.roster.all()

@@ -1,92 +1,163 @@
-New York,Yankees,"b",15,16,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Tampa Bay,Rays,"b",4,9,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Baltimore,Orioles,"b",11,15,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Toronto,Blue Jays,"b",12,12,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Boston,Red Sox,"b",12,15,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Chicago,White Sox,"b",5,16,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Minnesota,Twins,"b",5,2,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Cleveland,Indians,"b",20,18,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Detroit,Tigers,"b",4,12,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Kansas City,Royals,"b",10,20,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Houston,Astros,"b",10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Oakland,Athletics,"b",6,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Texas,Rangers,"b",12,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Seattle,Mariners,"b",8,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Los Angeles,Angels,"b",5,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Atlanta,Braves,"b",2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Miami,Marlins,"b",6,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-New York,Mets,"b",8,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Philadelphia,Phillies,"b",3,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Washington,Nationals,"b",9,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Pittsburgh,Pirates,"b",7,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Chicago,Cubs,"b",26,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Cincinatti,Reds,"b",5,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-St. Louis,Cardinals,"b",8,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Milwaulkee,Brewers,"b",2,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Los Angeles,Dodgers,"b",17,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Arizona,Diamondbacks,"b",5,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-San Francisco,Giants,"b",13,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Colorado,Rockies,"b",8,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-San Diego,Padres,"b",5,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Buffalo,Bills,"f",4,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-New York,Jets,"f",8,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-New England,Patriots,"f",17,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Miami,Dolphins,"f",6,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Pittsburgh,Steelers,"f",12,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Baltimore,Ravens,"f",5,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Cleveland,Browns,"f",1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Cincinatti,Bengals,"f",10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Indianapolis,Colts,"f",7,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Houston,Texans,"f",10,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Tennessee,Titans,"f",3,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Jacksonville,Jaguars,"f",2,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-San Diego,Chargers,"f",14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Denver,Broncos,"f",27,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Oakland,Raiders,"f",7,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Kansas City,Chiefs,"f",11,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-New York,Giants,"f",7,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Philadelphia,Eagles,"f",5,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Dallas,Cowboys,"f",7,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Washington,Redskins,"f",10,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Green Bay,Packers,"f",14,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Minnesota,Vikings,"f",12,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Chicago,Bears,"f",6,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Detroit,Lions,"f",6,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Atlanta,Falcons,"f",8,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Carolina,Panthers,"f",20,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Tampa Bay,Buccaneers,"f",3,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-New Orleans,Saints,"f",7,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Seattle,Seahawks,"f",14,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Arizona,Cardinals,"f",14,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Los Angeles,Rams,"f",6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-San Francisco,49ers,"f",3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-New York,Knicks,"k",5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Boston,Celtics,"k",7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-New Jersey,Nets,"k",2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Philadelphia,76ers,"k",1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Toronto,Raptors,"k",10,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Indiana,Pacers,"k",5,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Milwaukee,Bucks,"k",6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Chicago,Bulls,"k",7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Cleveland,Caveliers,"k",20,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Detroit,Pistons,"k",3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Miami,Heat,"k",7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Atlanta,Hawks,"k",14,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Charlotte,Hornets,"k",4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Orlando,Magic,"k",4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Washington,Wizards,"k",6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Houston,Rockets,"k",10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-San Antonio,Spurs,"k",12,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-New Orleans,Pelicans,"k",5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Memphis,Grizzlies,"k",12,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Dallas,Mavericks,"k",11,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Los Angeles,Lakers,"k",5,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Los Angeles,Clippers,"k",11,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Sacramento,Kings,"k",4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Golden State,Warriors,"k",18,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Phoenix,Suns,"k",4,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Portland,Trailblazers,"k",10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Oklahoma City,Thunder,"k",16,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Denver,Nuggets,"k",5,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Minnesota,Timberwolves,"k",3,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Utah,Jazz,"k",5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+New York,Yankees,"b",15,16
+Tampa Bay,Rays,"b",4,9
+Baltimore,Orioles,"b",11,15
+Toronto,Blue Jays,"b",12,12
+Boston,Red Sox,"b",12,15
+Chicago,White Sox,"b",5,16
+Minnesota,Twins,"b",5,2
+Cleveland,Indians,"b",20,18,
+Detroit,Tigers,"b",4,12,
+Kansas City,Royals,"b",10,20,
+Houston,Astros,"b",10,10
+Oakland,Athletics,"b",6,10
+Texas,Rangers,"b",12,12
+Seattle,Mariners,"b",8,11
+Los Angeles,Angels,"b",5,6
+Atlanta,Braves,"b",2,3
+Miami,Marlins,"b",6,8
+New York,Mets,"b",8,15
+Philadelphia,Phillies,"b",3,5
+Washington,Nationals,"b",9,10
+Pittsburgh,Pirates,"b",7,6
+Chicago,Cubs,"b",26,21
+Cincinatti,Reds,"b",5,7
+St. Louis,Cardinals,"b",8,11
+Milwaulkee,Brewers,"b",2,4
+Los Angeles,Dodgers,"b",17,13
+Arizona,Diamondbacks,"b",5,3
+San Francisco,Giants,"b",13,14
+Colorado,Rockies,"b",8,10
+San Diego,Padres,"b",5,3
+Buffalo,Bills,"f",4,6
+New York,Jets,"f",8,3
+New England,Patriots,"f",17,22
+Miami,Dolphins,"f",6,8
+Pittsburgh,Steelers,"f",12,18
+Baltimore,Ravens,"f",5,6
+Cleveland,Browns,"f",1,1
+Cincinatti,Bengals,"f",10,10
+Indianapolis,Colts,"f",7,11
+Houston,Texans,"f",10,7
+Tennessee,Titans,"f",3,6
+Jacksonville,Jaguars,"f",2,7
+San Diego,Chargers,"f",14,15
+Denver,Broncos,"f",27,16
+Oakland,Raiders,"f",7,10
+Kansas City,Chiefs,"f",11,10
+New York,Giants,"f",7,10
+Philadelphia,Eagles,"f",5,4
+Dallas,Cowboys,"f",7,13
+Washington,Redskins,"f",10,8
+Green Bay,Packers,"f",14,16
+Minnesota,Vikings,"f",12,14
+Chicago,Bears,"f",6,2
+Detroit,Lions,"f",6,7
+Atlanta,Falcons,"f",8,9
+Carolina,Panthers,"f",20,16
+Tampa Bay,Buccaneers,"f",3,4
+New Orleans,Saints,"f",7,6
+Seattle,Seahawks,"f",14,16
+Arizona,Cardinals,"f",14,17
+Los Angeles,Rams,"f",6,6
+San Francisco,49ers,"f",3,3
+New York,Knicks,"k",5,5
+Boston,Celtics,"k",7,7
+New Jersey,Nets,"k",2,2
+Philadelphia,76ers,"k",1,1
+Toronto,Raptors,"k",10,8
+Indiana,Pacers,"k",5,6
+Milwaukee,Bucks,"k",6,6
+Chicago,Bulls,"k",7,7
+Cleveland,Caveliers,"k",20,20
+Detroit,Pistons,"k",3,3
+Miami,Heat,"k",7,7
+Atlanta,Hawks,"k",14,11
+Charlotte,Hornets,"k",4,4
+Orlando,Magic,"k",4,4
+Washington,Wizards,"k",6,6
+Houston,Rockets,"k",10,10
+San Antonio,Spurs,"k",12,15
+New Orleans,Pelicans,"k",5,5
+Memphis,Grizzlies,"k",12,12
+Dallas,Mavericks,"k",11,11
+Los Angeles,Lakers,"k",5,6
+Los Angeles,Clippers,"k",11,11
+Sacramento,Kings,"k",4,4
+Golden State,Warriors,"k",18,21
+Phoenix,Suns,"k",4,8
+Portland,Trailblazers,"k",10,10
+Oklahoma City,Thunder,"k",16,8
+Denver,Nuggets,"k",5,7
+Minnesota,Timberwolves,"k",3,7
+Utah,Jazz,"k",5,5
+Boston,Bruins,"h",10,10
+Buffalo,Sabres,"h",10,5
+Detroit,Red Wings,"h",6,1
+Florida,Panthers,"h",6,5
+Montreal,Canadiens,"h",7,7
+Ottawa,Senators,"h",5,5
+Tampa Bay,Lightning,"h",4,4
+Toronto,Maple Leafs,"h",4,4
+Carolina,Hurricanes,"h",5,5
+Columbus,Blue Jackets,"h",5,5
+New Jersey,Devils,"h",6,6
+New York,Islanders,"h",7,7
+New York,Rangers,"h",5,5
+Philadelphia,Flyers,"h",5,5
+Pittsburgh,Penguins,"h",4,4
+Washington,Capitals,"h",5,5
+Chicago,Blackhawks,"h",5,3
+Colorado,Avalanche,"h",7,7
+Dallas,Stars,"h",8,8
+Minnesota,Wild,"h",6,6
+Nashville,Predators,"h",5,5
+St. Louis,Blues,"h",6,6
+Winnipeg,Jets,"h",6,6
+Anaheim,Ducks,"h",7,7
+Arizona,Coyotes,"h",5,5
+Calgary,Flames,"h",5,5
+Edmonton,Oilers,"h",5,2
+Los Angeles,Kings,"h",6,6
+San Jose,Sharks,"h",6,6
+Vancouver,Canucks,"h",5,5
+Chelsea,FC,"s",6,6
+Manchester,United,"s",7,7
+Manchester,City,"s",6,6
+Arsenal,FC,"s",6,6
+Tottenham,Hotspur,"s",7,7
+Liverpool,FC,"s",5,5
+Liecester,City,"s",6,6
+Southampton,FC,"s",5,5
+Fenerbace,FC,"s",5,5
+Besiktas,FC,"s",5,5
+PSV,Eindhoven,"s",7,7
+Ajax,Amsterdam,"s",5,5
+Paris,Saint-Germain,"s",10,7
+Olympique,Lyonnais,"s",4,4
+Monaco,FC,"s",6,6
+Real,Madrid,"s",6,6
+Atletico,Madrid,"s",8,8
+Barcelona,FC,"s",8,8
+Valencia,CF,"s",5,5
+Villareal,FC,"s",6,6
+Celta,Vigo,"s",5,3
+Sevilla,FC,"s",8,8
+Sporting,Lisbon,"s",6,7
+Porto,FC,"s",5,6
+Benfica,FC,"s",5,5
+Borussia,Dortmund,"s",7,8
+Bayern,Munich,"s",9,9
+Hertha,Berlin,"s",5,5
+RB,Leipzig,"s",6,6
+Bayer,Leverkusen,"s",4,4
+Schalke,FC,"s",5,5
+AS,Roma,"s",5,5
+Juventus,FC,"s",6,6
+Inter,Milan,"s",5,5
+AS,Napoli,"s",6,6
+AC,Milan,"s",7,7
+Fiorentina,FC,"s",5,5
+Zenit,St. Petersburg,"s",6,6
+CSKA,Moscow,"s",5,5
+Rostov,FC,"s",5,5
+Shaktar,Donetsk,"s",5,5
