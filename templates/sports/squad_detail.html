@@ -4,8 +4,29 @@
 <h1>{{ squad.name }}</h1>
 
 {% for team in squad.roster.all %}
-{{ team }}
-<a href="{% url 'squad_drop_view' squad.id team.id %}">Drop</a><br>
+<div class="row">
+  <div class="col m1">
+    {{ team }}
+  </div>
+  <div class="col m1">
+    <a href="{% url 'squad_drop_view' squad.id team.id %}">Drop</a><br>
+  </div>
+  <div class="col m1">
+    Rank
+  </div>
+  <div class="col m1">
+    PtsS
+  </div>
+  <div class="col m1">
+    LastW
+  </div>
+  <div class="col m1">
+    Own%
+</div>
+  <div class="col m1">
+    {{ team.week_1 }}
+  </div>
+</div>
 {% endfor %}
 
 

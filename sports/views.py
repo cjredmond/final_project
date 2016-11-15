@@ -5,6 +5,7 @@ from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from sports.models import Team, Squad, League, Matchup
 from django.urls import reverse, reverse_lazy
+from datetime import datetime, timedelta, timezone
 
 
 class UserCreateView(CreateView):
@@ -18,6 +19,9 @@ class IndexView(TemplateView):
     def get_context_data(self):
         context = super().get_context_data()
         leagues = League.objects.all()
+        context['now'] = datetime.now
+        context['time_a'] = datetime(2018, 9, 16, 0, 0)
+        context['time'] = datetime(2012, 9, 16, 0, 0)
         context['leagues'] = leagues
         return context
 

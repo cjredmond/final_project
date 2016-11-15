@@ -2,6 +2,7 @@ from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 import csv
+from datetime import datetime, timedelta, timezone
 
 class League(models.Model):
     name = models.CharField(max_length=40)
@@ -98,9 +99,7 @@ class Matchup(models.Model):
     week = models.IntegerField()
     home = models.ForeignKey(Squad, related_name='home')
     away = models.ForeignKey(Squad, related_name='away')
-    home_score = models.IntegerField(default=0)
-    away_score = models.IntegerField(default=0)
-
+    
     def __str__(self):
         return (str(self.home) + " vs " + str(self.away))
 

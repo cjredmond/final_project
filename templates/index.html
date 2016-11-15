@@ -10,5 +10,9 @@
 <a href="{% url 'league_detail_view' league.id %}">{{ league }}</a>
 {% endif %}
 {% endfor %}
+<hr>
+{% if now > time and now < time_a %}
+{{ now }}
+{% endif %}
 
 {% endblock %}
