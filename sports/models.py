@@ -82,16 +82,16 @@ class Squad(models.Model):
 
     # def week_score(self,week):
 
-
-    # def checker(self, sport):
-    #     teams = self.team_set.all()
-    #     count = 0
-    #     for team in teams:
-    #         if team.sport == sport:
-    #             count += 1
-    #     if count > 2:
-    #         return False
-    #     return True
+    def checker(self, sport):
+        teams = self.roster.all()
+        print(teams)
+        count = 0
+        for team in teams:
+            if team.sport == sport:
+                count += 1
+        if count > 2:
+            return False
+        return True
 
 class Matchup(models.Model):
     league = models.ForeignKey(League)

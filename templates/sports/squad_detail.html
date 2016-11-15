@@ -4,10 +4,9 @@
 <h1>{{ squad.name }}</h1>
 
 {% for team in squad.roster.all %}
-{{ team }}<br>
+{{ team }}
+<a href="{% url 'squad_drop_view' squad.id team.id %}">Drop</a><br>
 {% endfor %}
-
-<a href="{% url 'squad_update_view' squad.id %}">Draft</a>
 
 
 <div class="row">
@@ -20,32 +19,33 @@
   </div>
   <div id="test1" class="col s12">
     <h2>Baseball</h2>
+    {% if checker_b %}
     {% for team in baseball %}
     {{team}} -{{team.pts_proj}}
-    {% if baseball_checker %}
-    <a href="{% url 'team_update_view' team.id %}">Pick Up</a>
-    {% endif %}
+    {{ team.lookup }}
+    <a href="{% url 'squad_update_view' squad.id team.id %}">Add</a>
     <br>
     {% endfor %}
+    {% endif %}
   </div>
   <div id="test2" class="col s12">
       <h2>Football</h2>
+      {% if checker_f %}
       {% for team in football %}
       {{team}} -{{team.pts_proj}}
-      {% if football_checker %}
-      <a href="{% url 'team_update_view' team.id %}">Pick Up</a>
-      {% endif %}
+      <a href="{% url 'squad_update_view' squad.id team.id %}">Add</a>
       <br>
       {% endfor %}</div>
+      {% endif %}
   <div id="test3" class="col s12">
       <h2>Basketball</h2>
+      {% if checker_k %}
       {% for team in basketball %}
       {{team}} -{{team.pts_proj}}
-      {% if basketball_checker %}
-      <a href="{% url 'team_update_view' team.id %}">Pick Up</a>
-      {% endif %}
+      <a href="{% url 'squad_update_view' squad.id team.id %}">Add</a>
       <br>
       {% endfor %}</div>
+      {% endif %}
 </div>
 
 

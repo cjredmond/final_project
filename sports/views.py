@@ -64,13 +64,12 @@ class SquadDetailView(DetailView):
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
         target = Squad.objects.get(id=self.kwargs['pk'])
-        baseball = Team.objects.filter(sport="b", squad=None)
-        football = Team.objects.filter(sport="f", squad=None)
-        basketball = Team.objects.filter(sport="k", squad=None)
-        # context['baseball_checker'] = target.checker('b')
-        # context['football_checker'] = target.checker('f')
-        # context['basketball_checker'] = target.checker('k')
-        # context['your_teams'] = your_teams
+        baseball = Team.objects.filter(sport="b").exclude(squad__league=target.league)
+        football = Team.objects.filter(sport="f").exclude(squad__league=target.league)
+        basketball = Team.objects.filter(sport="k").exclude(squad__league=target.league)
+        context['checker_b'] = target.checker('b')
+        context['checker_f'] = target.checker('f')
+        context['checker_k'] = target.checker('k')
         context['baseball'] = baseball.order_by('-pts_proj')
         context['football'] = football.order_by('-pts_proj')
         context['basketball'] = basketball.order_by('-pts_proj')
@@ -103,8 +102,20 @@ class MatchupDetailView(DetailView):
 
 class SquadUpdateView(UpdateView):
     model = Squad
-    fields = ('roster',)
+    fields = []
     success_url = "/"
-    def form_valid(self, form):
+    def form_valid(self, form, **kwargs):
+        target = Team.objects.get(id=self.kwargs['sk'])
         instance = form.save(commit=False)
+        instance.roster.add(target)
+        return super().form_valid(form)
+
+class SquadDropView(UpdateView):
+    model = Squad
+    fields = []
+    success_url = "/"
+    def form_valid(self, form, **kwargs):
+        target = Team.objects.get(id=self.kwargs['sk'])
+        instance = form.save(commit=False)
+        instance.roster.remove(target)
         return super().form_valid(form)
