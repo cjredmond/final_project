@@ -9,18 +9,30 @@ class League(models.Model):
     limit = models.IntegerField()
     player = models.ManyToManyField('auth.User')
     live = models.BooleanField(default=False)
+    start = models.DateTimeField(null=True)
+    end = models.DateTimeField(null=True)
+    weekly_matchup = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.name)
 
+    def duration(self):
+        duration = self.end - self.start
+        return duration
+
     def schedule(self,squads):
         ##https://github.com/taddeimania/tfb/tree/master/utility/schedules
         ##-JoelTaddei
-        with open('6teams.csv') as infile:
-            reader = csv.reader(infile)
-            for row in reader:
-                Matchup.objects.create(league=self,week=row[0], home=squads.get(sched_id=row[1]),
-                away=squads.get(sched_id=row[2]))
+        if self.weekly_matchup:
+            weeks = self.duration() // timedelta(days=7)
+
+            with open('6teams.csv') as infile:
+                reader = csv.reader(infile)
+                for i,row in enumerate(reader):
+                    Matchup.objects.create(league=self,week=row[0], home=squads.get(sched_id=row[1]),
+                    away=squads.get(sched_id=row[2]))
+                    if i == weeks*3:
+                        break
 
     @property
     def get_squads(self):
@@ -99,7 +111,7 @@ class Matchup(models.Model):
     week = models.IntegerField()
     home = models.ForeignKey(Squad, related_name='home')
     away = models.ForeignKey(Squad, related_name='away')
-    
+
     def __str__(self):
         return (str(self.home) + " vs " + str(self.away))
 
@@ -121,3 +133,14 @@ class Matchup(models.Model):
         if home_score >= away_score:
             return home
         return away
+
+class PayLeague(models.Model):
+    name = models.CharField(max_length=40)
+    limit = models.IntegerField()
+    player = models.ManyToManyField('auth.User')
+    live = models.BooleanField(default=False)
+    start = models.DateTimeField(null=True)
+    end = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return str(self.name)

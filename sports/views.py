@@ -3,9 +3,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from sports.models import Team, Squad, League, Matchup
+from sports.models import Team, Squad, League, Matchup, PayLeague
 from django.urls import reverse, reverse_lazy
 from datetime import datetime, timedelta, timezone
+from sports.forms import LeagueForm
 
 
 class UserCreateView(CreateView):
@@ -28,7 +29,8 @@ class IndexView(TemplateView):
 class LeagueCreateView(CreateView):
     model = League
     success_url = "/"
-    fields = ("name","limit")
+    # fields = ("name","limit","start","end")
+    form_class = LeagueForm
     def form_valid(self, form):
         instance = form.save(commit=False)
         return super().form_valid(form)
@@ -52,6 +54,7 @@ class LeagueUpdateView(UpdateView):
 class LeagueDetailView(DetailView):
     model = League
     def get_context_data(self,**kwargs):
+        target = League.objects.get(id=self.kwargs['pk'])
         context = super().get_context_data(**kwargs)
         baseball = Team.objects.filter(sport="b")
         football = Team.objects.filter(sport="f")
@@ -60,6 +63,7 @@ class LeagueDetailView(DetailView):
         schedule = Matchup.objects.filter(league=self.kwargs['pk'])
         context['schedule'] = schedule
         context['squads'] = squads
+        context['duration'] = target.duration()
         # context['standings'] = sorted(squads, key=lambda t: -t.total_proj)
         return context
 
@@ -123,3 +127,6 @@ class SquadDropView(UpdateView):
         instance = form.save(commit=False)
         instance.roster.remove(target)
         return super().form_valid(form)
+#
+# class PayLeagueView(DetailView):
+#     model = PayLeague
