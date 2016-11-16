@@ -112,22 +112,3 @@ class Matchup(models.Model):
 
     def __str__(self):
         return (str(self.home) + " vs " + str(self.away))
-
-    @property
-    def home_score_calc(self):
-        home_roster = self.home.roster.all()
-        score = 0
-        for x in home_roster:
-            score += x.week_1
-        return score
-    def away_score_calc(self):
-        away_roster = self.away.roster.all()
-        score = 0
-        for x in away_roster:
-            score += x.week_1
-        return score
-
-    def winner(self):
-        if home_score >= away_score:
-            return home
-        return away
