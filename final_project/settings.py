@@ -1,5 +1,5 @@
 
-
+import dj_database_url
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -71,7 +71,7 @@ DATABASES = {
     }
 }
 
-import dj_database_url
+
 db_from_env = dj_database_url.config()
 if db_from_env:
     DATABASES['default'] = db_from_env
