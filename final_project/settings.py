@@ -15,7 +15,7 @@ SECRET_KEY = ')r@i3nbr#n)&km&5ey-re9d4&g0dh9xf_!gvqplz8zmzbf)e8w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['nameless-dawn-26114.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -110,3 +110,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = "/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
