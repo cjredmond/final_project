@@ -11,8 +11,11 @@
 {% endif %}
 {% endfor %}
 <hr>
-{% if now > time and now < time_a %}
-{{ now }}
+
+{% if not request.user.squad.league %}
+None
+{% else %}
+{{ user.squad.league }}
 {% endif %}
 
 {% endblock %}

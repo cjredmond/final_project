@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h4>{{ duration }}</h4>
+{{ user }}
+
+
+{% if league.limit == amount %}
+<h4>League is Full</h4>
+{% else %}
+{% if not request.user.squad %}
+<a href="{% url 'squad_create_view' league.id %}">Add team</a>
+{% endif %}
+{% endif %}
+
 
 {% if not league.live == True %}
 <a href="{% url 'league_update_view' league.id %}">Start!</a>

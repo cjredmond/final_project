@@ -22,16 +22,25 @@ class League(models.Model):
 
     def schedule(self,squads):
         ##https://github.com/taddeimania/tfb/tree/master/utility/schedules
-        ##-JoelTaddei
+        ##-CSV from JoelTaddei
         if self.weekly_matchup:
             weeks = self.duration() // timedelta(days=7)
+            dt = self.start
+            while dt.weekday() != 1:
+                dt += timedelta(days=1)
+
 
             with open('6teams.csv') as infile:
                 reader = csv.reader(infile)
                 for i,row in enumerate(reader):
+                    start_day = dt
+                    end_day = dt + timedelta(days=7)
                     Matchup.objects.create(league=self,week=row[0], home=squads.get(sched_id=row[1]),
-                    away=squads.get(sched_id=row[2]))
-                    if i == weeks*3:
+                    away=squads.get(sched_id=row[2]), tues_start=start_day, tues_end=end_day)
+                    print(i)
+                    if i % 3 == 2 or i == 2:
+                        dt = dt + timedelta(days=7)
+                    if i == (weeks*3) - 1:
                         break
 
     @property
@@ -39,7 +48,7 @@ class League(models.Model):
         return self.squad_set.all()
 
 
-SPORTS = [('f', 'football'), ('b', 'baseball'), ('k', 'basketball'), ('h', 'hockey'), ('s', 'soccer')]
+SPORTS = [('f', 'football'), ('k', 'basketball'), ('h', 'hockey'), ('s', 'soccer')]
 class Team(models.Model):
     city = models.CharField(max_length=50)
     name = models.CharField(max_length=50)
@@ -52,9 +61,26 @@ class Team(models.Model):
         return self.name
 
 class Score(models.Model):
-    pts = models.FloatField(null=True)
+    pts = models.FloatField(default=0)
     team = models.ForeignKey(Team)
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField(null=True)#auto_now_add=True
+
+    # @property
+    # def score(self):
+    #     start = matchup.tues_start
+    #     end = matchup.tues_end
+    #     all_scores = []
+    #     current_scores = []
+    #     for team in self.roster.all():
+    #         all_scores.append(team.score_set.all())
+    #     for group in all_scores:
+    #         for score in group:
+    #             if score.time > start and score.time < end:
+    #                 current_scores.append(score)
+    #     result = 0
+    #     for score in current_scores:
+    #         result = result + score.pts
+    #     return result
 
 class Squad(models.Model):
     user = models.OneToOneField('auth.User')
@@ -77,11 +103,29 @@ class Squad(models.Model):
             return False
         return True
 
+    def score(self, matchup):
+        start = matchup.tues_start
+        end = matchup.tues_end
+        all_scores = []
+        current_scores = []
+        for team in self.roster.all():
+            all_scores.append(team.score_set.all())
+        for group in all_scores:
+            for score in group:
+                if score.time > start and score.time < end:
+                    current_scores.append(score)
+        result = 0
+        for score in current_scores:
+            result = result + score.pts
+        return result
+
 class Matchup(models.Model):
     league = models.ForeignKey(League)
     week = models.IntegerField()
     home = models.ForeignKey(Squad, related_name='home')
     away = models.ForeignKey(Squad, related_name='away')
+    tues_start = models.DateTimeField(null=True)
+    tues_end = models.DateTimeField(null=True)
 
     def __str__(self):
         return (str(self.home) + " vs " + str(self.away))
@@ -104,14 +148,3 @@ class Matchup(models.Model):
         if home_score >= away_score:
             return home
         return away
-
-class PayLeague(models.Model):
-    name = models.CharField(max_length=40)
-    limit = models.IntegerField()
-    player = models.ManyToManyField('auth.User')
-    live = models.BooleanField(default=False)
-    start = models.DateTimeField(null=True)
-    end = models.DateTimeField(null=True)
-
-    def __str__(self):
-        return str(self.name)

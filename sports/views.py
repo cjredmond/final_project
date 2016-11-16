@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from sports.models import Team, Squad, League, Matchup, PayLeague
+from sports.models import Team, Squad, League, Matchup
 from django.urls import reverse, reverse_lazy
 from datetime import datetime, timedelta, timezone
 from sports.forms import LeagueForm
@@ -61,6 +61,7 @@ class LeagueDetailView(DetailView):
         basketball = Team.objects.filter(sport="k")
         squads = Squad.objects.filter(league=self.kwargs['pk'])
         schedule = Matchup.objects.filter(league=self.kwargs['pk'])
+        context['amount'] = squads.count()
         context['schedule'] = schedule
         context['squads'] = squads
         context['duration'] = target.duration()
@@ -103,10 +104,18 @@ class MatchupDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         target = Matchup.objects.get(id=self.kwargs['pk'])
-        context['home_score'] = target.home_score_calc
-        context['away_score'] = target.away_score_calc
+        context['home_score'] = target.home.score(target)
+        context['away_score'] = target.away.score(target)
 
         return context
+
+class SquadCreateView(CreateView):
+    model = Squad
+    success_url = "/"
+    def form_valid(self, form, **kwargs):
+        instance = form.save(commit=False)
+        instance.league = League.objects.get(id=self.kwargs['pk'])
+        return super().form_valid(form)
 
 class SquadUpdateView(UpdateView):
     model = Squad
