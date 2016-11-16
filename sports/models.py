@@ -65,23 +65,6 @@ class Score(models.Model):
     team = models.ForeignKey(Team)
     time = models.DateTimeField(null=True)#auto_now_add=True
 
-    # @property
-    # def score(self):
-    #     start = matchup.tues_start
-    #     end = matchup.tues_end
-    #     all_scores = []
-    #     current_scores = []
-    #     for team in self.roster.all():
-    #         all_scores.append(team.score_set.all())
-    #     for group in all_scores:
-    #         for score in group:
-    #             if score.time > start and score.time < end:
-    #                 current_scores.append(score)
-    #     result = 0
-    #     for score in current_scores:
-    #         result = result + score.pts
-    #     return result
-
 class Squad(models.Model):
     user = models.OneToOneField('auth.User')
     name = models.CharField(max_length=40)
