@@ -8,6 +8,7 @@ from django.urls import reverse, reverse_lazy
 from datetime import datetime, timedelta, timezone
 from sports.forms import LeagueForm
 
+
 class UserCreateView(CreateView):
     model = User
     form_class = UserCreationForm
@@ -55,6 +56,11 @@ class LeagueDetailView(DetailView):
         basketball = Team.objects.filter(sport="k")
         squads = Squad.objects.filter(league=self.kwargs['pk'])
         schedule = Matchup.objects.filter(league=self.kwargs['pk'])
+        current_games = []
+        for game in schedule:
+            if game.tues_start < datetime.now(timezone.utc) and game.tues_end > datetime.now(timezone.utc):
+                current_games.append(game)
+        context['current_games'] = current_games
         context['amount'] = squads.count()
         context['schedule'] = schedule
         context['squads'] = squads

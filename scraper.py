@@ -1,4 +1,5 @@
 import requests
+import datetime
 from bs4 import BeautifulSoup
 base_url_nfl = 'http://www.espn.com/nfl/bottomline/scores'
 data = requests.get(base_url_nfl)
