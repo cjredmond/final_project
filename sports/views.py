@@ -7,7 +7,7 @@ from sports.models import Team, Squad, League, Matchup
 from django.urls import reverse, reverse_lazy
 from datetime import datetime, timedelta, timezone
 from sports.forms import LeagueForm
-
+from sports.scraper import nba_scores
 
 class UserCreateView(CreateView):
     model = User
@@ -18,8 +18,19 @@ class IndexView(TemplateView):
     template_name = "index.html"
 
     def get_context_data(self):
+        nba = nba_scores()
+        teams = nba[0]['scores'][0].split(' ')
+        one = [teams[0], teams[1]]
+        two = [teams[4], teams[5]]
+        if one[1] > two[1]:
+            print('Team one won')
+        else:
+            print(3 + ((float(two[1]) - float(one[1])) * .5) + (float(two[1])*.1 ))
+            print(-2 - ((float(two[1]) - float(one[1])) * .5) + (float(one[1])*.1 ))
+
         context = super().get_context_data()
         leagues = League.objects.all()
+        context['nba'] = teams
         context['leagues'] = leagues
         return context
 
