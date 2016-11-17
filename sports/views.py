@@ -20,10 +20,10 @@ class IndexView(TemplateView):
     def get_context_data(self):
         context = super().get_context_data()
         items = usable_data(fix_names(nba_scores()))
-        for dictionary in items:
-            print(dictionary['winner'])
-            winner = Team.objects.get(city=dictionary['winner'])
-            loser = Team.objects.get(city=dictionary['loser'])
+        if items:
+            for dictionary in items:
+                winner = Team.objects.get(city=dictionary['winner'])
+                loser = Team.objects.get(city=dictionary['loser'])
             # Score.objects.create(team=winner, pts=dictionary['winner_pts'],tag=dictionary['tag'], time=datetime.now())
             # Score.objects.create(team=loser, pts=dictionary['loser_pts'],tag=dictionary['tag'], time=datetime.now())
         leagues = League.objects.all()
@@ -114,8 +114,12 @@ class MatchupDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         target = Matchup.objects.get(id=self.kwargs['pk'])
+        home_teams = target.get_team_score()[0]
+
         context['home_score'] = target.home.score(target)
         context['away_score'] = target.away.score(target)
+        context['home_teams'] = home_teams
+        context['away_teams'] = target.get_team_score()[1]
 
         return context
 

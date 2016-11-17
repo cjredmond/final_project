@@ -5,5 +5,13 @@
 
 {{ matchup.home }} vs {{ matchup.away }}
 {{ home_score }} - {{ away_score }}
+<hr>
 
+{% for score in home_teams %}
+{{ score.team }} {{ score.pts }}<br>
+{% endfor %}
+
+{% for score in away_teams %}
+{{ score.team }} {{ score.pts }}<br>
+{% endfor %}
 {% endblock %}

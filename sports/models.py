@@ -60,6 +60,10 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def get_scores(self):
+        return self.score_set.all()
+
 class Score(models.Model):
     pts = models.FloatField(default=0)
     team = models.ForeignKey(Team)
@@ -116,3 +120,16 @@ class Matchup(models.Model):
 
     def __str__(self):
         return (str(self.home) + " vs " + str(self.away))
+
+    def get_team_score(self):
+        home_games = []
+        away_games = []
+        for team in self.home.roster.all():
+            for score in team.score_set.all():
+                if score.time > self.tues_start and score.time < self.tues_end:
+                    home_games.append(score)
+        for team in self.away.roster.all():
+            for score in team.score_set.all():
+                if score.time > self.tues_start and score.time < self.tues_end:
+                    away_games.append(score)
+        return (home_games, away_games)

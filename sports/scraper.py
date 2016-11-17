@@ -67,24 +67,27 @@ data_list = [['Washington', '102', '^Philadelphia', '109', '(FINAL)', 'http://ww
 def usable_data(data):
     view_data = []
     for x in data:
-        if int(x[1]) > int(x[3]):
-            info = {}
-            info['winner'] = x[0].replace('^', '')
-            info['winner_pts'] = ((float(x[1]) - float(x[3])) * .5) + 3 + float(x[1]) * .08
-            info['loser'] = x[2]
-            info['loser_pts'] = -((float(x[1]) - float(x[3])) * .5) -4 + float(x[1]) * .08
-            info['tag'] = x[5]
-            info['time'] = x[4]
-            view_data.append(info)
+        if not type(x[1]) is int:
+            pass
         else:
-            info = {}
-            info['winner'] = x[2].replace('^', '')
-            info['winner_pts'] = ((float(x[3]) - float(x[1])) * .5) + 3 + float(x[1]) * .08
-            info['loser'] = x[0]
-            info['loser_pts'] = -((float(x[3]) - float(x[1])) * .5) -4 + float(x[1]) * .08
-            info['tag'] = x[5]
-            info['time'] = x[4]
-            view_data.append(info)
+            if int(x[1]) > int(x[3]):
+                info = {}
+                info['winner'] = x[0].replace('^', '')
+                info['winner_pts'] = ((float(x[1]) - float(x[3])) * .5) + 3 + float(x[1]) * .08
+                info['loser'] = x[2]
+                info['loser_pts'] = -((float(x[1]) - float(x[3])) * .5) -4 + float(x[1]) * .08
+                info['tag'] = x[5]
+                info['time'] = x[4]
+                view_data.append(info)
+            else:
+                info = {}
+                info['winner'] = x[2].replace('^', '')
+                info['winner_pts'] = ((float(x[3]) - float(x[1])) * .5) + 3 + float(x[1]) * .08
+                info['loser'] = x[0]
+                info['loser_pts'] = -((float(x[3]) - float(x[1])) * .5) -4 + float(x[1]) * .08
+                info['tag'] = x[5]
+                info['time'] = x[4]
+                view_data.append(info)
     return view_data
 
 # print(usable_data(fix_names(nba_scores())))
