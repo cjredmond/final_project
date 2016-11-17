@@ -64,6 +64,10 @@ class Score(models.Model):
     pts = models.FloatField(default=0)
     team = models.ForeignKey(Team)
     time = models.DateTimeField(null=True)#auto_now_add=True
+    tag = models.URLField()
+
+    def __str__(self):
+        return str(self.team) + ' ' + str(self.pts)
 
 class Squad(models.Model):
     user = models.OneToOneField('auth.User')

@@ -3,11 +3,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from sports.models import Team, Squad, League, Matchup
+from sports.models import Team, Squad, League, Matchup, Score
 from django.urls import reverse, reverse_lazy
 from datetime import datetime, timedelta, timezone
 from sports.forms import LeagueForm
-from sports.scraper import nba_scores
+from sports.scraper import nba_scores, usable_data, fix_names
 
 class UserCreateView(CreateView):
     model = User
@@ -18,19 +18,15 @@ class IndexView(TemplateView):
     template_name = "index.html"
 
     def get_context_data(self):
-        nba = nba_scores()
-        teams = nba[0]['scores'][0].split(' ')
-        one = [teams[0], teams[1]]
-        two = [teams[4], teams[5]]
-        if one[1] > two[1]:
-            print('Team one won')
-        else:
-            print(3 + ((float(two[1]) - float(one[1])) * .5) + (float(two[1])*.1 ))
-            print(-2 - ((float(two[1]) - float(one[1])) * .5) + (float(one[1])*.1 ))
-
         context = super().get_context_data()
+        items = usable_data(fix_names(nba_scores()))
+        for dictionary in items:
+            print(dictionary['winner'])
+            winner = Team.objects.get(city=dictionary['winner'])
+            loser = Team.objects.get(city=dictionary['loser'])
+            # Score.objects.create(team=winner, pts=dictionary['winner_pts'],tag=dictionary['tag'], time=datetime.now())
+            # Score.objects.create(team=loser, pts=dictionary['loser_pts'],tag=dictionary['tag'], time=datetime.now())
         leagues = League.objects.all()
-        context['nba'] = teams
         context['leagues'] = leagues
         return context
 
