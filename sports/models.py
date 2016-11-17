@@ -85,7 +85,6 @@ class Squad(models.Model):
 
     def checker(self, sport):
         teams = self.roster.all()
-        print(teams)
         count = 0
         for team in teams:
             if team.sport == sport:
