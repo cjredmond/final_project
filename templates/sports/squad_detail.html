@@ -33,17 +33,16 @@
 <div class="row">
   <div class="col s12">
     <ul class="tabs">
-      <li class="tab col s3"><a href="#test1">Baseball</a></li>
+      <li class="tab col s3"><a href="#test1">Hockey</a></li>
       <li class="tab col s3"><a class="active" href="#test2">Football</a></li>
       <li class="tab col s3"><a href="#test3">Basketball</a></li>
     </ul>
   </div>
   <div id="test1" class="col s12">
-    <h2>Baseball</h2>
-    {% if checker_b %}
-    {% for team in baseball %}
+    <h2>Hockey</h2>
+    {% if checker_h %}
+    {% for team in hockey %}
     {{team}} -{{team.pts_proj}}
-    {{ team.lookup }}
     <a href="{% url 'squad_update_view' squad.id team.id %}">Add</a>
     <br>
     {% endfor %}
@@ -60,13 +59,14 @@
       {% endif %}
   <div id="test3" class="col s12">
       <h2>Basketball</h2>
-      {% if checker_k %}
       {% for team in basketball %}
       {{team}} -{{team.pts_proj}}
+      {% if checker_k %}
       <a href="{% url 'squad_update_view' squad.id team.id %}">Add</a>
+      {% endif %}
       <br>
       {% endfor %}</div>
-      {% endif %}
+
 </div>
 
 
