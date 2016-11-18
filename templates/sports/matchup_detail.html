@@ -1,17 +1,55 @@
 {% extends 'base.html' %}
 {% block content %}
-{{ matchup.tues_start}} - {{ matchup.tues_end }}
-<br>
+<h2>WEEK {{ matchup.week }}</h2>
+{{ matchup.tues_start }} - {{ matchup.tues_end }}
+<hr>
 
-{{ matchup.home }} vs {{ matchup.away }}
+{{ matchup.home }} vs {{ matchup.away }}<br>
 {{ home_score }} - {{ away_score }}
 <hr>
 
-{% for score in home_teams %}
-{{ score.team }} {{ score.pts }}<br>
-{% endfor %}
+<div class="row">
+  <div class="col m6">
+    <h4>{{ matchup.home }}</h4>
 
-{% for score in away_teams %}
-{{ score.team }} {{ score.pts }}<br>
-{% endfor %}
+  </div>
+  <div class="col m6">
+    <h4>{{ matchup.away }}</h4>
+      <div class="row">
+        <div class="row">
+          <div class="col s1"></div>
+          <div class="col m8 matchup-score-header">
+            {{ matchup.away}} Box Score
+          </div>
+        </div>
+        <div class="col m2 matchup-col">
+          <ul>
+          <li class='matchup-list-top'>SPORT</li>
+          {% for team in away_squad_sports %}
+          <li class='matchup-team'>{{ team }}</li>
+          {% endfor %}
+          </ul>
+        </div>
+        <div class="col m4 matchup-col">
+          <ul>
+          <li class='matchup-list-top'>TEAM</li>
+          {% for team in away_squad_teams %}
+          <li class='matchup-team'>{{ team }}</li>
+          {% endfor %}
+          <li class='matchup-team'>TOTAL:</li>
+          </ul>
+        </div>
+        <div class="col m4 matchup-col">
+          <ul>
+            <li class='matchup-list-top'>SCORE</li>
+            {% for score in away_squad_scores %}
+            <li class='matchup-team'>{{ score }}</li>
+            {% endfor %}
+            <li class='matchup-team'>{{ away_score }}</li>
+          </ul>
+        </div>
+      </div>
+  </div>
+</div>
+
 {% endblock %}

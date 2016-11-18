@@ -60,15 +60,26 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
+    def week_score(self,matchup):
+        group = self.get_scores
+        total = 0
+        for score in group:
+            if score.time > matchup.tues_start and score.time < matchup.tues_end:
+                total = total + score.pts
+        return total
+
     @property
     def get_scores(self):
         return self.score_set.all()
+
+
 
 class Score(models.Model):
     pts = models.FloatField(default=0)
     team = models.ForeignKey(Team)
     time = models.DateTimeField(null=True)#auto_now_add=True
     tag = models.URLField()
+    #game_time = models.CharField(default='(FINAL)',max_length=50)
 
     def __str__(self):
         return str(self.team) + ' ' + str(self.pts)
@@ -120,15 +131,44 @@ class Matchup(models.Model):
     def __str__(self):
         return (str(self.home) + " vs " + str(self.away))
 
-    def get_team_score(self):
-        home_games = []
-        away_games = []
+    def get_squad_score(self):
+        home_scores = []
+        away_scores = []
         for team in self.home.roster.all():
             for score in team.score_set.all():
                 if score.time > self.tues_start and score.time < self.tues_end:
-                    home_games.append(score)
+                    home_scores.append(score)
         for team in self.away.roster.all():
             for score in team.score_set.all():
                 if score.time > self.tues_start and score.time < self.tues_end:
-                    away_games.append(score)
-        return (home_games, away_games)
+                    away_scores.append(score)
+        home_total = 0
+        away_total = 0
+        for score in home_scores:
+            home_total = home_total + score.pts
+        for score in away_scores:
+            away_total = away_total + score.pts
+        return (home_total, away_total)
+    def each_team_score(self):
+        home_teams = self.home.roster.all()
+        away_teams = self.away.roster.all()
+        home_list = []
+        away_list = []
+        home_team = []
+        home_pts = []
+        away_team = []
+        away_pts = []
+        home_sports = []
+        away_sports = []
+        for team in home_teams:
+            home_dict['team'] = team
+            home_dict['pts'] = team.week_score(self)
+        for team in away_teams:
+            away_team.append(team)
+            away_pts.append(team.week_score(self))
+            away_sports.append(team.sport)
+        away_list.append(away_teams)
+        away_list.append(away_pts)
+        away_list.append(away_sports)
+
+        return home_list,away_list

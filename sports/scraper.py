@@ -110,6 +110,3 @@ def duplicate_team(data):
         if answer == "LAC":
             return 'Clippers'
         return "Lakers"
-
-
-print(duplicate_team(fake_dict))
