@@ -3,7 +3,7 @@ import datetime
 import urllib
 from bs4 import BeautifulSoup
 from urllib.parse import parse_qs
-from scraper import fix_names
+from sports.scraper import fix_names
 
 
 
@@ -36,9 +36,9 @@ def nfl_usable_data(data):
             if int(x[1]) > int(x[3]):
                 info = {}
                 info['winner'] = x[0].replace('^', '')
-                info['winner_pts'] = (float(x[1]) - float(x[3]))*3 + 2 + float(x[1]) * .8
+                info['winner_pts'] = (float(x[1]) - float(x[3]))*2 + 2 + float(x[1]) * .8
                 info['loser'] = x[2]
-                info['loser_pts'] = round((float(x[3]) - float(x[1])) - 3 + float(x[1]) * .8,3)
+                info['loser_pts'] = round((float(x[3]) - float(x[1])) - 2 + float(x[1]) * .8,3)
                 info['time'] = x[4]
                 info['tag'] = x[5]
                 if x[5] == 'IN':
@@ -48,12 +48,13 @@ def nfl_usable_data(data):
             else:
                 info = {}
                 info['winner'] = x[2].replace('^', '')
-                info['winner_pts'] = (float(x[3]) - float(x[1]))*3 + 2 + float(x[1]) * .8
+                info['winner_pts'] = (float(x[3]) - float(x[1]))*2 + 2 + float(x[1]) * .4
                 info['loser'] = x[0]
-                info['loser_pts'] = round((float(x[1]) - float(x[3])) -0 + float(x[1]) * .8,3)
+                info['loser_pts'] = round((float(x[1]) - float(x[3])) -2 + float(x[1]) * .4,3)
                 info['time'] = x[4]
+                info['tag'] = x[5]
                 if x[5] == 'IN':
                     info['tag'] = x[7]
                 view_data.append(info)
     return view_data
-print(nfl_usable_data(fix_names(nfl_scores())))
+# print(nfl_usable_data(fix_names(nfl_scores())))

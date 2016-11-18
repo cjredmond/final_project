@@ -3,7 +3,7 @@ import datetime
 import urllib
 from bs4 import BeautifulSoup
 from urllib.parse import parse_qs
-from scraper import fix_names
+from sports.scraper import fix_names
 
 def nhl_scores():
     url = 'http://www.espn.com/nhl/bottomline/scores'
@@ -50,8 +50,9 @@ def nhl_usable_data(data):
                 info['loser'] = x[0]
                 info['loser_pts'] = round((float(x[1]) - float(x[3])) -0 + float(x[1]) * .8,3)
                 info['time'] = x[4]
+                info['tag'] = x[5]
                 if x[5] == 'IN':
                     info['tag'] = x[7]
                 view_data.append(info)
     return view_data
-print(nhl_usable_data(fix_names(nhl_scores())))
+# print(nhl_usable_data(fix_names(nhl_scores())))

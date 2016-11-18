@@ -89,9 +89,27 @@ def usable_data(data):
                 info['loser'] = x[0]
                 info['loser_pts'] = -((float(x[3]) - float(x[1])) * .5) -4 + float(x[1]) * .08
                 info['time'] = x[4]
+                info['tag'] = x[5]
                 if x[5] == 'IN':
                     info['tag'] = x[7]
                 view_data.append(info)
     return view_data
-# 
+#
 # print(usable_data(fix_names(nba_scores())))
+
+fake_dict = {'winner' : 'LA',
+             'tag' : 'http://www.espn.com/nba/game?gameId=400899617'}
+
+def duplicate_team(data):
+    if data['winner'] == 'LA':
+        check = requests.get(data['tag'])
+        souper = BeautifulSoup(check.text, 'html.parser')
+        team = souper.find_all('span', title="LA")
+        for x in team:
+            answer = x.text
+        if answer == "LAC":
+            return 'Clippers'
+        return "Lakers"
+
+
+print(duplicate_team(fake_dict))

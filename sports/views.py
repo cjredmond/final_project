@@ -8,6 +8,8 @@ from django.urls import reverse, reverse_lazy
 from datetime import datetime, timedelta, timezone
 from sports.forms import LeagueForm
 from sports.scraper import nba_scores, usable_data, fix_names
+from sports.nfl_scraper import nfl_scores, nfl_usable_data
+from sports.nhl_scraper import nhl_scores, nhl_usable_data
 
 class UserCreateView(CreateView):
     model = User
@@ -22,8 +24,9 @@ class IndexView(TemplateView):
         items = usable_data(fix_names(nba_scores()))
         if items:
             for dictionary in items:
-                winner = Team.objects.get(city=dictionary['winner'])
-                loser = Team.objects.get(city=dictionary['loser'])
+                print(dictionary)
+                winner = Team.objects.get(city=dictionary['winner'], sport='k')
+                loser = Team.objects.get(city=dictionary['loser'], sport='k')
                 Score.objects.filter(tag=dictionary['tag']).delete()
                 Score.objects.create(team=winner, pts=dictionary['winner_pts'],tag=dictionary['tag'], time=datetime.now())
                 Score.objects.create(team=loser, pts=dictionary['loser_pts'],tag=dictionary['tag'], time=datetime.now())

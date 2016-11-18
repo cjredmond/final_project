@@ -35,4 +35,4 @@ for x in score_content:
 
 
         #print(a.attrs['alt'])
-print(premier_league[0])
+print(premier_league)

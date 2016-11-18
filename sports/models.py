@@ -51,7 +51,7 @@ class League(models.Model):
 SPORTS = [('f', 'football'), ('k', 'basketball'), ('h', 'hockey'), ('s', 'soccer')]
 class Team(models.Model):
     city = models.CharField(max_length=50)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50,blank=True,null=True)
     logo = models.FileField(null=True,blank=True)
     sport = models.CharField(max_length=1,choices=SPORTS)
     pts_last = models.IntegerField()
