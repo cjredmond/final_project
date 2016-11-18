@@ -24,8 +24,9 @@ class IndexView(TemplateView):
             for dictionary in items:
                 winner = Team.objects.get(city=dictionary['winner'])
                 loser = Team.objects.get(city=dictionary['loser'])
-            # Score.objects.create(team=winner, pts=dictionary['winner_pts'],tag=dictionary['tag'], time=datetime.now())
-            # Score.objects.create(team=loser, pts=dictionary['loser_pts'],tag=dictionary['tag'], time=datetime.now())
+                Score.objects.filter(tag=dictionary['tag']).delete()
+                Score.objects.create(team=winner, pts=dictionary['winner_pts'],tag=dictionary['tag'], time=datetime.now())
+                Score.objects.create(team=loser, pts=dictionary['loser_pts'],tag=dictionary['tag'], time=datetime.now())
         leagues = League.objects.all()
         context['leagues'] = leagues
         return context
