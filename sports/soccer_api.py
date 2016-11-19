@@ -21,9 +21,15 @@ for x in score_content:
         info = {}
         #print(a)
         #print(x.find_all('div', class_='team-score')[0])
-        info['time'] = x.find_all('span', class_='time')
-        info['home_score'] = x.find_all('div', class_='team-score')[0]
-        info['away_score'] = x.find_all('div', class_='team-score')[1]
+        time = x.find_all('span', class_='time')
+        for i,a in enumerate(time):
+            if i == 0:
+                info['time'] = a.text
+        home_score = x.find_all('div', class_='team-score')[0]
+        away_score = x.find_all('div', class_='team-score')[1]
+        info['home_score'] = home_score.text.replace('\n','')
+        info['away_score'] = away_score.text.replace('\n','')
+
 
 
     for i,a in enumerate(z):
@@ -31,8 +37,11 @@ for x in score_content:
             info['home'] = a.attrs['alt']
         else:
             info['away'] = a.attrs['alt']
-            premier_league.append(info)
+            if info['home_score'] == "":
+                pass
+            else:
+                premier_league.append(info)
 
 
         #print(a.attrs['alt'])
-print(premier_league)
+# print(premier_league)

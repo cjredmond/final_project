@@ -97,16 +97,19 @@ def usable_data(data):
 #
 # print(usable_data(fix_names(nba_scores())))
 
-fake_dict = {'winner' : 'LA',
-             'tag' : 'http://www.espn.com/nba/game?gameId=400899617'}
 
-def duplicate_team(data):
-    if data['winner'] == 'LA':
-        check = requests.get(data['tag'])
-        souper = BeautifulSoup(check.text, 'html.parser')
-        team = souper.find_all('span', title="LA")
-        for x in team:
-            answer = x.text
-        if answer == "LAC":
-            return 'Clippers'
-        return "Lakers"
+
+# def duplicate_team(data):
+#     for dictionary in data:
+#         if dictionary['winner'] == 'LA':
+#             check = requests.get(dictionary['tag'])
+#             souper = BeautifulSoup(check.text, 'html.parser')
+#             team = souper.find_all('span', title="LA")
+#             for x in team:
+#                 answer = x.text
+#             if answer == "LAC":
+#                 dictionary['winner'] == 'Clippers'
+#                 return data
+#             dictionary['winner'] == 'Lakers'
+#             return data
+#     return data

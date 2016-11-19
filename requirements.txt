@@ -6,4 +6,3 @@ gunicorn
 psycopg2
 whitenoise
 celery==3.1.25
-django-celery-beat

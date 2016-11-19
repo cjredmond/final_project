@@ -161,8 +161,9 @@ class Matchup(models.Model):
         home_sports = []
         away_sports = []
         for team in home_teams:
-            home_dict['team'] = team
-            home_dict['pts'] = team.week_score(self)
+            home_team.append(team)
+            home_pts.append(team.week_score(self))
+            home_sports.append(team.sport)
         for team in away_teams:
             away_team.append(team)
             away_pts.append(team.week_score(self))
@@ -170,5 +171,8 @@ class Matchup(models.Model):
         away_list.append(away_teams)
         away_list.append(away_pts)
         away_list.append(away_sports)
+        home_list.append(home_teams)
+        home_list.append(home_pts)
+        home_list.append(home_sports)
 
         return home_list,away_list
