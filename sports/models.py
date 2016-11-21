@@ -128,6 +128,8 @@ class Squad(models.Model):
         for game in games:
             if game.win == self:
                 wins += 1
+            elif not game.win:
+                pass
             else:
                 loss += 1
         return wins,loss
@@ -193,7 +195,7 @@ class Matchup(models.Model):
     def win(self):
         while timezone.now() > self.tues_end:
             if self.get_squad_score()[0] > self.get_squad_score()[1]:
-                print("Home")
                 return self.home
-            print("Away")
+            elif self.get_squad_score()[0] == self.get_squad_score()[1]:
+                return self.home
             return self.away

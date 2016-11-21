@@ -3,14 +3,13 @@
 <h2>WEEK {{ matchup.week }}</h2>
 {{ matchup.tues_start }} - {{ matchup.tues_end }}
 <hr>
-<h3>{{ win }}</h3>
-{{ matchup.home }} vs {{ matchup.away }}<br>
-{{ home_score }} - {{ away_score }}
-<hr>
 
 <div class="row">
   <div class="col m6">
-    <h4>{{ matchup.home }}</h4>
+    <div class="matchup-team-infobox">
+  <h5>{{ matchup.home }} {{ home_record }}</h5>
+    </div>
+
     <div class="row">
       <div class="row">
         <div class="col s1"></div>
@@ -48,7 +47,9 @@
 
   </div>
   <div class="col m6">
-    <h4>{{ matchup.away }}</h4>
+    <div class="card-panel">
+  <h4>{{ matchup.away }} {{ away_record }}</h4>
+    </div>
       <div class="row">
         <div class="row">
           <div class="col s1"></div>

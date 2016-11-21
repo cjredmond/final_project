@@ -19,6 +19,8 @@
   font-size: 24px;
 }
 
-.matchup-col {
-
+.matchup-team-infobox {
+  height: 20vh;
+  width: 60vh;
+  background-color: red;
 }

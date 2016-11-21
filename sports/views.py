@@ -116,8 +116,10 @@ class SquadDetailView(DetailView):
         context['checker_k'] = target.checker('k')
         context['football'] = football.order_by('-pts_proj')
         context['basketball'] = basketball.order_by('-pts_proj')
-        context['hocket'] = hockey.order_by('-pts_proj')
+        context['hockey'] = hockey.order_by('-pts_proj')
         context['soccer'] = soccer.order_by('-pts_proj')
+        context['day'] = datetime.now().weekday
+        context['record'] = target.wins()
         return context
 
 class TeamUpdateView(UpdateView):
@@ -148,8 +150,8 @@ class MatchupDetailView(DetailView):
         context['away_squad_teams'] = target.each_team_score()[1][0]
         context['away_squad_scores'] = target.each_team_score()[1][1]
         context['away_squad_sports'] = target.each_team_score()[1][2]
-        x = target.away
-        context['win'] = x.wins()
+        context['home_record'] = target.home.wins()
+        context['away_record'] = target.away.wins()
 
 
         return context

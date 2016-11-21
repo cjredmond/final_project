@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+<h3> {{ record }}</h3>
 <a href="{% url 'league_detail_view' user.squad.league.id %}">League</a>
 <h1>{{ squad.name }}</h1>
 
