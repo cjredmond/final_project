@@ -3,24 +3,29 @@
   font-size: 20px;
 }
 .matchup-team:nth-child(even) {
-  background-color: mediumspringgreen;
+  background-color: #1a8cff;
 }
 .matchup-team:nth-child(odd) {
-  background-color: palegreen;
+  background-color: #4da6ff;
 }
 .matchup-list-top {
-  background-color: darkseagreen;
+  background-color: #0073e6;
   text-align: center;
 }
 
 .matchup-score-header {
   text-align: center;
-  background: green;
+  background: #0073e6;
   font-size: 24px;
 }
 
 .matchup-team-infobox {
-  height: 20vh;
-  width: 60vh;
-  background-color: red;
+  width: 65vh;
+  height: 25vh;
+  background-color: grey;
+}
+
+.matchup-team-infobox-left {
+  color: blue;
+  background-color: white;
 }
