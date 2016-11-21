@@ -73,9 +73,9 @@ def usable_data(data):
             if int(x[1]) > int(x[3]):
                 info = {}
                 info['winner'] = x[0].replace('^', '')
-                info['winner_pts'] = ((float(x[1]) - float(x[3])) * .5) + 3 + float(x[1]) * .08
+                info['winner_pts'] = round(((float(x[1]) - float(x[3])) * .5) + 3 + float(x[1]) * .08,3)
                 info['loser'] = x[2]
-                info['loser_pts'] = -((float(x[1]) - float(x[3])) * .5) -4 + float(x[1]) * .08
+                info['loser_pts'] = round(-((float(x[1]) - float(x[3])) * .5) -4 + float(x[1]) * .08,3)
                 info['time'] = x[4]
                 info['tag'] = x[5]
                 if x[5] == 'IN':
@@ -85,9 +85,9 @@ def usable_data(data):
             else:
                 info = {}
                 info['winner'] = x[2].replace('^', '')
-                info['winner_pts'] = ((float(x[3]) - float(x[1])) * .5) + 3 + float(x[1]) * .08
+                info['winner_pts'] = round(((float(x[3]) - float(x[1])) * .5) + 3 + float(x[1]) * .08,3)
                 info['loser'] = x[0]
-                info['loser_pts'] = -((float(x[3]) - float(x[1])) * .5) -4 + float(x[1]) * .08
+                info['loser_pts'] = round(-((float(x[3]) - float(x[1])) * .5) -4 + float(x[1]) * .08,3)
                 info['time'] = x[4]
                 info['tag'] = x[5]
                 if x[5] == 'IN':

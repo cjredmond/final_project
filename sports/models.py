@@ -2,7 +2,8 @@ from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 import csv
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
+from django.utils import timezone
 
 class League(models.Model):
     name = models.CharField(max_length=40)
@@ -120,6 +121,18 @@ class Squad(models.Model):
             result = result + score.pts
         return result
 
+    def wins(self):
+        games = Matchup.objects.filter(away=self) | Matchup.objects.filter(home=self)
+        wins = 0
+        loss = 0
+        for game in games:
+            if game.win == self:
+                wins += 1
+            else:
+                loss += 1
+        return wins,loss
+
+
 class Matchup(models.Model):
     league = models.ForeignKey(League)
     week = models.IntegerField()
@@ -162,11 +175,11 @@ class Matchup(models.Model):
         away_sports = []
         for team in home_teams:
             home_team.append(team)
-            home_pts.append(team.week_score(self))
+            home_pts.append(round(team.week_score(self),3))
             home_sports.append(team.sport)
         for team in away_teams:
             away_team.append(team)
-            away_pts.append(team.week_score(self))
+            away_pts.append(round(team.week_score(self),3))
             away_sports.append(team.sport)
         away_list.append(away_teams)
         away_list.append(away_pts)
@@ -176,3 +189,11 @@ class Matchup(models.Model):
         home_list.append(home_sports)
 
         return home_list,away_list
+    @property
+    def win(self):
+        while timezone.now() > self.tues_end:
+            if self.get_squad_score()[0] > self.get_squad_score()[1]:
+                print("Home")
+                return self.home
+            print("Away")
+            return self.away

@@ -43,5 +43,5 @@ for x in score_content:
                 premier_league.append(info)
 
 
-        #print(a.attrs['alt'])
+#         print(a.attrs['alt'])
 # print(premier_league)

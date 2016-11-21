@@ -10,6 +10,7 @@ from sports.forms import LeagueForm
 from sports.scraper import nba_scores, usable_data, fix_names
 from sports.nfl_scraper import nfl_scores, nfl_usable_data
 from sports.nhl_scraper import nhl_scores, nhl_usable_data
+from sports.tasks import cal
 
 class UserCreateView(CreateView):
     model = User
@@ -21,27 +22,36 @@ class IndexView(TemplateView):
 
     def get_context_data(self):
         context = super().get_context_data()
+        cal.delay()
         # items = nhl_usable_data(fix_names(nhl_scores()))
         # for dictionary in items:
-        #     print(dictionary)
-        #     if dictionary['winner'] == 'LA':
-        #         winner = Team.objects.get(name='Clippers', sport='k')
-        #         loser = Team.objects.get(city=dictionary['loser'], sport='k')
-        #     elif dictionary['loser'] == 'LA':
-        #         winner = Team.objects.get(city=dictionary['winner'], sport='k')
-        #         loser = Team.objects.get(name='Clippers', sport='k')
-        #     elif dictionary['winner'] == 'LA Lakers':
-        #         winner = Team.objects.get(name='Lakers')
-        #         loser = Team.objects.get(city=dictionary['loser'], sport='k')
-        #     elif dictionary['loser'] == 'LA Lakers':
-        #         winner = Team.objects.get(city=dictionary['winner'], sport='k')
-        #         loser = Team.objects.get(name='Lakers')
-        #     else:
-        #         winner = Team.objects.get(city=dictionary['winner'], sport='h')
-        #         loser = Team.objects.get(city=dictionary['loser'], sport='h')
-        #     Score.objects.filter(tag=dictionary['tag']).delete()
-        #     Score.objects.create(team=winner, pts=dictionary['winner_pts'],tag=dictionary['tag'], time=datetime.now())
-        #     Score.objects.create(team=loser, pts=dictionary['loser_pts'],tag=dictionary['tag'], time=datetime.now())
+            # if dictionary['winner'] == 'NY Giants':
+            #     winner = Team.objects.get(name='Giants', sport='f')
+            #     loser = Team.objects.get(city=dictionary['loser'], sport='f')
+            # elif dictionary['loser'] == 'NY Giants':
+            #     winner = Team.objects.get(city=dictionary['winner'], sport='f')
+            #     loser = Team.objects.get(name='Giants', sport='f')
+            # else:
+            # if dictionary['winner'] == 'LA':
+            #     winner = Team.objects.get(name='Clippers', sport='k')
+            #     loser = Team.objects.get(city=dictionary['loser'], sport='k')
+            # elif dictionary['loser'] == 'LA':
+            #     winner = Team.objects.get(city=dictionary['winner'], sport='k')
+            #     loser = Team.objects.get(name='Clippers', sport='k')
+            # elif dictionary['winner'] == 'LA Lakers':
+            #     winner = Team.objects.get(name='Lakers')
+            #     loser = Team.objects.get(city=dictionary['loser'], sport='k')
+            # elif dictionary['loser'] == 'LA Lakers':
+            #     winner = Team.objects.get(city=dictionary['winner'], sport='k')
+            #     loser = Team.objects.get(name='Lakers')
+            # else:
+            #     winner = Team.objects.get(city=dictionary['winner'], sport='k')
+            #     loser = Team.objects.get(city=dictionary['loser'], sport='k')
+            # winner = Team.objects.get(city=dictionary['winner'], sport='h')
+            # loser = Team.objects.get(city=dictionary['loser'], sport='h')
+            # Score.objects.filter(tag=dictionary['tag']).delete()
+            # Score.objects.create(team=winner, pts=dictionary['winner_pts'],tag=dictionary['tag'], time=datetime.now())
+            # Score.objects.create(team=loser, pts=dictionary['loser_pts'],tag=dictionary['tag'], time=datetime.now())
         leagues = League.objects.all()
         context['leagues'] = leagues
         return context
@@ -138,6 +148,8 @@ class MatchupDetailView(DetailView):
         context['away_squad_teams'] = target.each_team_score()[1][0]
         context['away_squad_scores'] = target.each_team_score()[1][1]
         context['away_squad_sports'] = target.each_team_score()[1][2]
+        x = target.away
+        context['win'] = x.wins()
 
 
         return context
