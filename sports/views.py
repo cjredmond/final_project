@@ -23,12 +23,6 @@ class IndexView(TemplateView):
 
     def get_context_data(self):
         context = super().get_context_data()
-        Celtics = Team.objects.get(name='Celtics')
-        x = Squad.objects.filter(roster__name='Celtics')
-        x = list(x)
-        Score.objects.create(team=Celtics, pts=5, time=timezone.now(), tag='http://www.google.com')
-        y = Score.objects.get(tag='http://www.google.com')
-        y.active_squad.add(*x)
 
         # cal.delay()
         # items = nhl_usable_data(fix_names(nhl_scores()))
@@ -150,14 +144,15 @@ class MatchupDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         target = Matchup.objects.get(id=self.kwargs['pk'])
-        context['home_score'] = round(target.get_squad_score()[0],2)
-        context['away_score'] = round(target.get_squad_score()[1],2)
-        context['home_squad_teams'] = target.each_team_score()[0][0]
-        context['home_squad_scores'] = target.each_team_score()[0][1]
-        context['home_squad_sports'] = target.each_team_score()[0][2]
-        context['away_squad_teams'] = target.each_team_score()[1][0]
-        context['away_squad_scores'] = target.each_team_score()[1][1]
-        context['away_squad_sports'] = target.each_team_score()[1][2]
+        context['test'] = target.get_home_info()
+        context['home_score'] = target.get_home_score()
+        context['away_score'] = target.get_away_score()
+        context['home_squad_teams'] = target.get_home_info()[0]
+        context['home_squad_scores'] = target.get_home_info()[1]
+        context['home_squad_sports'] = target.get_home_info()[2]
+        context['away_squad_teams'] = target.get_away_info()[0]
+        context['away_squad_scores'] = target.get_away_info()[1]
+        context['away_squad_sports'] = target.get_away_info()[2]
         context['home_record'] = target.home.wins()
         context['away_record'] = target.away.wins()
 

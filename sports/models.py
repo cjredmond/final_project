@@ -134,6 +134,11 @@ class Score(models.Model):
     def __str__(self):
         return str(self.team) + ' ' + str(self.pts)
 
+    def is_current(self, matchup):
+        if self.time > matchup.tues_start and self.time < matchup.tues_end:
+            return True
+        return False
+
 class Matchup(models.Model):
     league = models.ForeignKey(League)
     week = models.IntegerField()
@@ -145,56 +150,50 @@ class Matchup(models.Model):
     def __str__(self):
         return (str(self.home) + " vs " + str(self.away))
 
-    def get_squad_score(self):
-        home_scores = []
-        away_scores = []
-        for team in self.home.roster.all():
-            for score in team.score_set.all():
-                if score.time > self.tues_start and score.time < self.tues_end:
-                    home_scores.append(score)
-        for team in self.away.roster.all():
-            for score in team.score_set.all():
-                if score.time > self.tues_start and score.time < self.tues_end:
-                    away_scores.append(score)
-        home_total = 0
-        away_total = 0
-        for score in home_scores:
-            home_total = home_total + score.pts
-        for score in away_scores:
-            away_total = away_total + score.pts
-        return (home_total, away_total)
-    def each_team_score(self):
-        home_teams = self.home.roster.all()
-        away_teams = self.away.roster.all()
-        home_list = []
-        away_list = []
-        home_team = []
-        home_pts = []
-        away_team = []
-        away_pts = []
-        home_sports = []
-        away_sports = []
-        for team in home_teams:
-            home_team.append(team)
-            home_pts.append(round(team.week_score(self),3))
-            home_sports.append(team.sport)
-        for team in away_teams:
-            away_team.append(team)
-            away_pts.append(round(team.week_score(self),3))
-            away_sports.append(team.sport)
-        away_list.append(away_teams)
-        away_list.append(away_pts)
-        away_list.append(away_sports)
-        home_list.append(home_teams)
-        home_list.append(home_pts)
-        home_list.append(home_sports)
+    def get_home_score(self):
+        group = Score.objects.filter(active_squad=self.home)
+        total = sum([score.pts for score in group])
+        return total
 
-        return home_list,away_list
+    def get_away_score(self):
+        group = Score.objects.filter(active_squad=self.away)
+        total = sum([score.pts for score in group])
+        return total
+
+    def get_home_info(self):
+        teams = self.home.roster.all()
+        team_names = [team.name for team in teams]
+        score_sets = [team.score_set.all() for team in teams]
+        team_scores = []
+        for team in score_sets:
+            total = 0
+            for score in team:
+                if score.is_current(self) and self.home in list(score.active_squad.all()):
+                    total += score.pts
+            team_scores.append(total)
+        team_sport = [team.sport for team in teams]
+        all_info = [team_names,team_scores,team_sport]
+        print(all_info)
+        return all_info
+
+    def get_away_info(self):
+        teams = self.away.roster.all()
+        team_names = [team.name for team in teams]
+        score_sets = [team.score_set.all() for team in teams]
+        team_scores = []
+        for team in score_sets:
+            total = 0
+            for score in team:
+                if score.is_current(self) and self.away in list(score.active_squad.all()):
+                    total += score.pts
+            team_scores.append(total)
+        team_sport = [team.sport for team in teams]
+        all_info = [team_names,team_scores,team_sport]
+        return all_info
+
     @property
     def win(self):
         while timezone.now() > self.tues_end:
-            if self.get_squad_score()[0] > self.get_squad_score()[1]:
-                return self.home
-            elif self.get_squad_score()[0] == self.get_squad_score()[1]:
+            if self.get_home_score() >= self.get_away_score():
                 return self.home
             return self.away
