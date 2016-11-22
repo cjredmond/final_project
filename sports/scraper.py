@@ -4,6 +4,7 @@ import urllib
 from bs4 import BeautifulSoup
 from urllib.parse import parse_qs
 from itertools import chain
+from sports.models import Team
 
 def nba_scores():
     base_url_nba = 'http://www.espn.com/nba/bottomline/scores'
@@ -95,9 +96,7 @@ def usable_data(data):
                 view_data.append(info)
     return view_data
 #
-# print(usable_data(fix_names(nba_scores())))
-
-
+#print(usable_data(fix_names(nba_scores())))
 
 # def duplicate_team(data):
 #     for dictionary in data:

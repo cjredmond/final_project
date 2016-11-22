@@ -4,6 +4,7 @@ import urllib
 from bs4 import BeautifulSoup
 from urllib.parse import parse_qs
 from sports.scraper import fix_names
+from sports.models import Squad, Team
 
 def nhl_scores():
     url = 'http://www.espn.com/nhl/bottomline/scores'
@@ -39,7 +40,7 @@ def nhl_usable_data(data):
                 info['loser_pts'] = round((float(x[3]) - float(x[1])) - 3 + float(x[1]) * .8,3)
                 info['time'] = x[4]
                 info['tag'] = x[5]
-                if x[5] == 'IN':
+                if x[5] == 'IN' or x[5] == '-':
                     info['tag'] = x[7]
 
                 view_data.append(info)
@@ -51,8 +52,8 @@ def nhl_usable_data(data):
                 info['loser_pts'] = round((float(x[1]) - float(x[3])) -0 + float(x[1]) * .8,3)
                 info['time'] = x[4]
                 info['tag'] = x[5]
-                if x[5] == 'IN':
+                if x[5] == 'IN' or x[5] == '-':
                     info['tag'] = x[7]
                 view_data.append(info)
     return view_data
-# print(nhl_usable_data(fix_names(nhl_scores())))
+# y = (nhl_usable_data(fix_names(nhl_scores())))

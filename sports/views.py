@@ -11,6 +11,7 @@ from sports.scraper import nba_scores, usable_data, fix_names
 from sports.nfl_scraper import nfl_scores, nfl_usable_data
 from sports.nhl_scraper import nhl_scores, nhl_usable_data
 from sports.tasks import cal
+from django.utils import timezone
 
 class UserCreateView(CreateView):
     model = User
@@ -22,7 +23,14 @@ class IndexView(TemplateView):
 
     def get_context_data(self):
         context = super().get_context_data()
-        cal.delay()
+        Celtics = Team.objects.get(name='Celtics')
+        x = Squad.objects.filter(roster__name='Celtics')
+        x = list(x)
+        Score.objects.create(team=Celtics, pts=5, time=timezone.now(), tag='http://www.google.com')
+        y = Score.objects.get(tag='http://www.google.com')
+        y.active_squad.add(*x)
+
+        # cal.delay()
         # items = nhl_usable_data(fix_names(nhl_scores()))
         # for dictionary in items:
             # if dictionary['winner'] == 'NY Giants':

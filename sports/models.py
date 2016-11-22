@@ -73,18 +73,6 @@ class Team(models.Model):
     def get_scores(self):
         return self.score_set.all()
 
-
-
-class Score(models.Model):
-    pts = models.FloatField(default=0)
-    team = models.ForeignKey(Team)
-    time = models.DateTimeField(null=True)#auto_now_add=True
-    tag = models.URLField()
-    #game_time = models.CharField(default='(FINAL)',max_length=50)
-
-    def __str__(self):
-        return str(self.team) + ' ' + str(self.pts)
-
 class Squad(models.Model):
     user = models.OneToOneField('auth.User')
     name = models.CharField(max_length=40)
@@ -134,6 +122,17 @@ class Squad(models.Model):
                 loss += 1
         return wins,loss
 
+
+class Score(models.Model):
+    pts = models.FloatField(default=0)
+    team = models.ForeignKey(Team)
+    time = models.DateTimeField(null=True)#auto_now_add=True
+    tag = models.URLField()
+    game_time = models.CharField(default='(FINAL)',max_length=50)
+    active_squad = models.ManyToManyField(Squad, blank=True)
+
+    def __str__(self):
+        return str(self.team) + ' ' + str(self.pts)
 
 class Matchup(models.Model):
     league = models.ForeignKey(League)
