@@ -6,17 +6,17 @@
 
 {% for team in squad.roster.all %}
 <div class="row">
-  <div class="col m1">
+  <div class="col m2">
     {{ team }}
   </div>
   <div class="col m1">
     <a href="{% url 'squad_drop_view' squad.id team.id %}">Drop</a><br>
   </div>
   <div class="col m1">
-    Rank
+    {{ team.rank }}
   </div>
   <div class="col m1">
-    PtsS
+    {{ team.total_points }}
   </div>
   <div class="col m1">
     LastW

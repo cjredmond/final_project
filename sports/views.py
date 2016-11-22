@@ -145,8 +145,8 @@ class MatchupDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         target = Matchup.objects.get(id=self.kwargs['pk'])
         context['test'] = target.get_home_info()
-        context['home_score'] = target.get_home_score()
-        context['away_score'] = target.get_away_score()
+        context['home_score'] = target.get_home_score
+        context['away_score'] = target.get_away_score
         context['home_squad_teams'] = target.get_home_info()[0]
         context['home_squad_scores'] = target.get_home_info()[1]
         context['home_squad_sports'] = target.get_home_info()[2]

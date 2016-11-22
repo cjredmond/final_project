@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 import csv
 from datetime import datetime, timedelta
 from django.utils import timezone
+from operator import itemgetter
 
 class League(models.Model):
     name = models.CharField(max_length=40)
@@ -72,6 +73,14 @@ class Team(models.Model):
     @property
     def get_scores(self):
         return self.score_set.all()
+    def total_points(self):
+        return sum(round(score.pts,3) for score in self.get_scores)
+    def rank(self):
+        teams = Team.objects.filter(sport=self.sport)
+        ranked = sorted(teams, key=lambda t: -t.total_points())
+        ranked = [i for i, x in enumerate(ranked) if x == self]
+        ranked = str(ranked).replace("[","").replace("]","")
+        return ranked
 
 class Squad(models.Model):
     user = models.OneToOneField('auth.User')
@@ -150,16 +159,6 @@ class Matchup(models.Model):
     def __str__(self):
         return (str(self.home) + " vs " + str(self.away))
 
-    def get_home_score(self):
-        group = Score.objects.filter(active_squad=self.home)
-        total = sum([score.pts for score in group])
-        return total
-
-    def get_away_score(self):
-        group = Score.objects.filter(active_squad=self.away)
-        total = sum([score.pts for score in group])
-        return total
-
     def get_home_info(self):
         teams = self.home.roster.all()
         team_names = [team.name for team in teams]
@@ -173,7 +172,6 @@ class Matchup(models.Model):
             team_scores.append(total)
         team_sport = [team.sport for team in teams]
         all_info = [team_names,team_scores,team_sport]
-        print(all_info)
         return all_info
 
     def get_away_info(self):
@@ -197,3 +195,13 @@ class Matchup(models.Model):
             if self.get_home_score() >= self.get_away_score():
                 return self.home
             return self.away
+
+    def get_home_score(self):
+        group = Score.objects.filter(active_squad=self.home)
+        total = sum([score.pts for score in group])
+        return total
+
+    def get_away_score(self):
+        group = Score.objects.filter(active_squad=self.away)
+        total = sum([score.pts for score in group])
+        return total

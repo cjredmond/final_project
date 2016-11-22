@@ -26,7 +26,8 @@
 <div class="row">
   <div class="col m6">
 {% for game in current_games %}
-<a href="{% url 'matchup_detail_view' game.id %}">{{ game }}</a><br>
+<a href="{% url 'matchup_detail_view' game.id %}">{{ game.home }} {{ game.get_home_score}}
+<br>{{ game.away }} {{ game.get_away_score}}</a><hr>
 {% endfor %}
   </div>
   <div class="col m6">
