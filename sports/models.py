@@ -74,13 +74,25 @@ class Team(models.Model):
     def get_scores(self):
         return self.score_set.all()
     def total_points(self):
-        return sum(round(score.pts,3) for score in self.get_scores)
+        return round(sum(score.pts for score in self.get_scores),3)
     def rank(self):
         teams = Team.objects.filter(sport=self.sport)
         ranked = sorted(teams, key=lambda t: -t.total_points())
         ranked = [i for i, x in enumerate(ranked) if x == self]
         ranked = str(ranked).replace("[","").replace("]","")
-        return ranked
+        return int(ranked) + 1
+    def owned_per(self):
+        l = League.objects.all().count()
+        t = Squad.objects.filter(roster=self).count()
+        return t/l * 100
+    def ppg(self):
+        g = Score.objects.filter(team=self).count()
+        t = float(self.total_points())
+        if g:
+            return round(t/g,2)
+        return 0
+
+
 
 class Squad(models.Model):
     user = models.OneToOneField('auth.User')

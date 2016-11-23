@@ -26,6 +26,7 @@ def nhl_scores():
 def nhl_usable_data(data):
     view_data = []
     for x in data:
+        l = len(x)
         try:
             int(x[1])
         except:
@@ -39,9 +40,9 @@ def nhl_usable_data(data):
                 info['loser'] = x[2]
                 info['loser_pts'] = round((float(x[3]) - float(x[1])) - 3 + float(x[1]) * .8,3)
                 info['time'] = x[4]
-                info['tag'] = x[5]
-                if x[5] == 'IN' or x[5] == '-':
-                    info['tag'] = x[7]
+                info['tag'] = x[l-1]
+                #if x[5] == 'IN' or x[5] == '-':
+                    #info['tag'] = x[7]
 
                 view_data.append(info)
             else:
@@ -51,9 +52,10 @@ def nhl_usable_data(data):
                 info['loser'] = x[0]
                 info['loser_pts'] = round((float(x[1]) - float(x[3])) -0 + float(x[1]) * .8,3)
                 info['time'] = x[4]
-                info['tag'] = x[5]
-                if x[5] == 'IN' or x[5] == '-':
-                    info['tag'] = x[7]
+                info['tag'] = x[l-1]
+                #if x[5] == 'IN' or x[5] == '-':
+                    #info['tag'] = x[7]
                 view_data.append(info)
     return view_data
 # y = (nhl_usable_data(fix_names(nhl_scores())))
+# print(y)

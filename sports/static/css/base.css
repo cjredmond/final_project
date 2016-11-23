@@ -29,3 +29,30 @@
   color: blue;
   background-color: white;
 }
+
+.squad-detail-free-agent {
+  height: 25px;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  background-color: lightgreen;
+  padding-left: 2px;
+}
+
+.squad-detail-lineup {
+  background-color: #C8F4D7;
+  font-size: 16px;
+  border: 2px solid darkgreen;
+  border-radius: 5px;
+}
+
+.squad-detail-team {
+  border-left: 2px solid grey;
+  border-right: 2px solid grey;
+}
+
+.squad-detail-lineup-top {
+  background-color: lightgreen;
+  font-size: 20px;
+  border: 2px solid black;
+  border-radius: 5px;
+}

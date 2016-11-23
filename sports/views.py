@@ -116,10 +116,10 @@ class SquadDetailView(DetailView):
         context['checker_h'] = target.checker('h')
         context['checker_f'] = target.checker('f')
         context['checker_k'] = target.checker('k')
-        context['football'] = football.order_by('-pts_proj')
-        context['basketball'] = basketball.order_by('-pts_proj')
-        context['hockey'] = hockey.order_by('-pts_proj')
-        context['soccer'] = soccer.order_by('-pts_proj')
+        context['football'] = sorted(football, key=lambda t: -t.total_points())
+        context['basketball'] = sorted(basketball, key=lambda t: -t.total_points())
+        context['hockey'] = sorted(hockey, key=lambda t: -t.total_points())
+        context['soccer'] = sorted(soccer, key=lambda t: -t.total_points())
         context['day'] = datetime.now().weekday
         context['record'] = target.wins()
         return context
