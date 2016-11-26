@@ -13,7 +13,6 @@ class League(models.Model):
     live = models.BooleanField(default=False)
     start = models.DateTimeField(null=True)
     end = models.DateTimeField(null=True)
-    weekly_matchup = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.name)
@@ -25,25 +24,23 @@ class League(models.Model):
     def schedule(self,squads):
         ##https://github.com/taddeimania/tfb/tree/master/utility/schedules
         ##-CSV from JoelTaddei
-        if self.weekly_matchup:
-            weeks = self.duration() // timedelta(days=7)
-            dt = self.start
-            while dt.weekday() != 1:
-                dt += timedelta(days=1)
+        weeks = self.duration() // timedelta(days=7)
+        dt = self.start
+        while dt.weekday() != 1:
+            dt += timedelta(days=1)
 
-
-            with open('6teams.csv') as infile:
-                reader = csv.reader(infile)
-                for i,row in enumerate(reader):
-                    start_day = dt
-                    end_day = dt + timedelta(days=7)
-                    Matchup.objects.create(league=self,week=row[0], home=squads.get(sched_id=row[1]),
-                    away=squads.get(sched_id=row[2]), tues_start=start_day, tues_end=end_day)
-                    print(i)
-                    if i % 3 == 2 or i == 2:
-                        dt = dt + timedelta(days=7)
-                    if i == (weeks*3) - 1:
-                        break
+        with open('6teams.csv') as infile:
+            reader = csv.reader(infile)
+            for i,row in enumerate(reader):
+                start_day = dt
+                end_day = dt + timedelta(days=7)
+                Matchup.objects.create(league=self,week=row[0], home=squads.get(sched_id=row[1]),
+                away=squads.get(sched_id=row[2]), tues_start=start_day, tues_end=end_day)
+                print(i)
+                if i % 3 == 2 or i == 2:
+                    dt = dt + timedelta(days=7)
+                if i == (weeks*3) - 1:
+                    break
 
     @property
     def get_squads(self):
@@ -128,7 +125,7 @@ class Squad(models.Model):
         result = 0
         for score in current_scores:
             result = result + score.pts
-        return result
+        return round(result,3)
 
     def wins(self):
         games = Matchup.objects.filter(away=self) | Matchup.objects.filter(home=self)
@@ -181,7 +178,7 @@ class Matchup(models.Model):
             for score in team:
                 if score.is_current(self) and self.home in list(score.active_squad.all()):
                     total += score.pts
-            team_scores.append(total)
+            team_scores.append(round(total,3))
         team_sport = [team.sport for team in teams]
         all_info = [team_names,team_scores,team_sport]
         return all_info
@@ -196,7 +193,7 @@ class Matchup(models.Model):
             for score in team:
                 if score.is_current(self) and self.away in list(score.active_squad.all()):
                     total += score.pts
-            team_scores.append(total)
+            team_scores.append(round(total,3))
         team_sport = [team.sport for team in teams]
         all_info = [team_names,team_scores,team_sport]
         return all_info

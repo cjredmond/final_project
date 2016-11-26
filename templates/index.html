@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<nav>
+  <div class="nav-wrapper">
+    <ul>
+      <li><a href="{% url 'login' %}">Login</a></li>
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+      <li><a href="{% url 'user_create_view' %}">Create User</a></li>
+    </ul>
 
-{{ nba }}
-<a href="{% url 'login' %}">Login</a> |
-<a href="{% url 'logout' %}">Logout</a> |
-<a href="{% url 'user_create_view' %}">Create User</a> |
+  </div>
+</nav>
+
+
+
+
 <hr>
 {% for league in leagues %}
 {% if request.user.squad.league == league %}
@@ -14,10 +23,12 @@
 {% endfor %}
 <hr>
 
-{% if not request.user.squad.league %}
-None
-{% else %}
-{{ user.squad.league }}
+{% for league in leagues %}
+{% if not league.live %}
+{{ league }}
 {% endif %}
+{% endfor %}
+
+<a href="{% url 'league_create_view' %}">New League</a>
 
 {% endblock %}

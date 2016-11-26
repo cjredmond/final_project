@@ -14,7 +14,6 @@ from django.utils import timezone
 def cal():
     items_nba = usable_data(fix_names(nba_scores()))
     for dictionary in items_nba:
-
         if dictionary['winner'] == 'LA Lakers':
             winner = Team.objects.get(name='Lakers')
             loser = Team.objects.get(city=dictionary['loser'], sport='k')
@@ -25,8 +24,9 @@ def cal():
             winner = Team.objects.get(city=dictionary['winner'], sport='k')
             loser = Team.objects.get(city=dictionary['loser'], sport='k')
 
-        x = Score.objects.filter(tag=dictionary['tag'])
-        if x:
+
+        if Score.objects.filter(tag=dictionary['tag']):
+            x = Score.objects.filter(tag=dictionary['tag'])
             prev_winner = Score.objects.get(tag=dictionary['tag'], team=winner)
             y = list(prev_winner.active_squad.all())
             prev_winner.delete()
