@@ -23,37 +23,6 @@ class IndexView(TemplateView):
 
     def get_context_data(self):
         context = super().get_context_data()
-
-        # cal.delay()
-        # items = nhl_usable_data(fix_names(nhl_scores()))
-        # for dictionary in items:
-            # if dictionary['winner'] == 'NY Giants':
-            #     winner = Team.objects.get(name='Giants', sport='f')
-            #     loser = Team.objects.get(city=dictionary['loser'], sport='f')
-            # elif dictionary['loser'] == 'NY Giants':
-            #     winner = Team.objects.get(city=dictionary['winner'], sport='f')
-            #     loser = Team.objects.get(name='Giants', sport='f')
-            # else:
-            # if dictionary['winner'] == 'LA':
-            #     winner = Team.objects.get(name='Clippers', sport='k')
-            #     loser = Team.objects.get(city=dictionary['loser'], sport='k')
-            # elif dictionary['loser'] == 'LA':
-            #     winner = Team.objects.get(city=dictionary['winner'], sport='k')
-            #     loser = Team.objects.get(name='Clippers', sport='k')
-            # elif dictionary['winner'] == 'LA Lakers':
-            #     winner = Team.objects.get(name='Lakers')
-            #     loser = Team.objects.get(city=dictionary['loser'], sport='k')
-            # elif dictionary['loser'] == 'LA Lakers':
-            #     winner = Team.objects.get(city=dictionary['winner'], sport='k')
-            #     loser = Team.objects.get(name='Lakers')
-            # else:
-            #     winner = Team.objects.get(city=dictionary['winner'], sport='k')
-            #     loser = Team.objects.get(city=dictionary['loser'], sport='k')
-            # winner = Team.objects.get(city=dictionary['winner'], sport='h')
-            # loser = Team.objects.get(city=dictionary['loser'], sport='h')
-            # Score.objects.filter(tag=dictionary['tag']).delete()
-            # Score.objects.create(team=winner, pts=dictionary['winner_pts'],tag=dictionary['tag'], time=datetime.now())
-            # Score.objects.create(team=loser, pts=dictionary['loser_pts'],tag=dictionary['tag'], time=datetime.now())
         leagues = League.objects.all()
         context['leagues'] = leagues
         return context
@@ -123,20 +92,20 @@ class SquadDetailView(DetailView):
         context['day'] = datetime.now().weekday
         context['record'] = target.wins()
         return context
-
-class TeamUpdateView(UpdateView):
-    model = Team
-    fields = []
-    def get_success_url(self, **kwargs):
-        return "/"
-        #return reverse_lazy('squad_detail_view', args=str(self.request.user.squad.id))
-    def form_valid(self, form):
-        instance = form.save(commit=False)
-        if instance.squad == self.request.user.squad:
-            instance.squad = None
-        else:
-            instance.squad = self.request.user.squad
-        return super().form_valid(form)
+#
+# class TeamUpdateView(UpdateView):
+#     model = Team
+#     fields = []
+#     def get_success_url(self, **kwargs):
+#         return "/"
+#         #return reverse_lazy('squad_detail_view', args=str(self.request.user.squad.id))
+#     def form_valid(self, form):
+#         instance = form.save(commit=False)
+#         if instance.squad == self.request.user.squad:
+#             instance.squad = None
+#         else:
+#             instance.squad = self.request.user.squad
+#         return super().form_valid(form)
 
 class MatchupDetailView(DetailView):
     model = Matchup
@@ -162,9 +131,11 @@ class MatchupDetailView(DetailView):
 class SquadCreateView(CreateView):
     model = Squad
     success_url = "/"
+    fields = ('name',)
     def form_valid(self, form, **kwargs):
         instance = form.save(commit=False)
         instance.league = League.objects.get(id=self.kwargs['pk'])
+        instance.user = self.request.user
         return super().form_valid(form)
 
 class SquadUpdateView(UpdateView):
@@ -186,3 +157,12 @@ class SquadDropView(UpdateView):
         instance = form.save(commit=False)
         instance.roster.remove(target)
         return super().form_valid(form)
+
+class DraftView(TemplateView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        target = League.objects.get(id=self.kwargs['pk'])
+        dt = timedelta(seconds=10)
+        context['now'] = timezone.now()
+        
+        return context

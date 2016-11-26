@@ -1,8 +1,8 @@
 from django.conf.urls import url, include
 from django.contrib import admin
 from sports.views import UserCreateView, IndexView, LeagueCreateView, LeagueUpdateView, \
-                         LeagueDetailView, SquadDetailView, TeamUpdateView, MatchupDetailView, \
-                         SquadUpdateView, SquadDropView, SquadCreateView
+                         LeagueDetailView, SquadDetailView, MatchupDetailView, \
+                         SquadUpdateView, SquadDropView, SquadCreateView, DraftView
 
 
 urlpatterns = [
@@ -18,5 +18,6 @@ urlpatterns = [
     url(r'^roster/(?P<pk>\d+)/draft/(?P<sk>\d+)/$', SquadUpdateView.as_view(), name='squad_update_view'),
     url(r'^roster/(?P<pk>\d+)/drop/(?P<sk>\d+)/$', SquadDropView.as_view(), name='squad_drop_view'),
     url(r'^squad/(?P<pk>\d+)/create/$', SquadCreateView.as_view(), name='squad_create_view'),
+    url(r'^draft/(?P<pk>\d+)/$', DraftView.as_view(), name='draft_view'),
 
 ]

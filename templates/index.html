@@ -23,12 +23,16 @@
 {% endfor %}
 <hr>
 
+{% if not request.user.squad %}
 {% for league in leagues %}
 {% if not league.live %}
-{{ league }}
+<a href="{% url 'league_detail_view' league.id %}">{{ league }}</a>
 {% endif %}
 {% endfor %}
+{% endif %}
 
 <a href="{% url 'league_create_view' %}">New League</a>
+
+
 
 {% endblock %}

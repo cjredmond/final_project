@@ -36,7 +36,6 @@ class League(models.Model):
                 end_day = dt + timedelta(days=7)
                 Matchup.objects.create(league=self,week=row[0], home=squads.get(sched_id=row[1]),
                 away=squads.get(sched_id=row[2]), tues_start=start_day, tues_end=end_day)
-                print(i)
                 if i % 3 == 2 or i == 2:
                     dt = dt + timedelta(days=7)
                 if i == (weeks*3) - 1:
@@ -214,3 +213,10 @@ class Matchup(models.Model):
         group = Score.objects.filter(active_squad=self.away)
         total = sum([score.pts for score in group])
         return total
+
+# class Draft(models.Model):
+#     league = models.OneToOneField(league)
+#
+#     @property
+#     def draft(self):
+#         teams = self.league.squad_set.all()
