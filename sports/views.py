@@ -21,25 +21,25 @@ class UserCreateView(CreateView):
 
 class IndexView(TemplateView):
     template_name = "index.html"
-    soccer = soccer_scorer(soccer())
+    # soccer = soccer_scorer(soccer())
 
-    for dictionary in soccer:
-        x = Team.objects.filter(city=dictionary['winner'])
-        if x:
-            winner = Team.objects.get(city=dictionary['winner'])
-            squads = list(Squad.objects.filter(roster__name=winner.name))
-            Score.objects.create(team=winner, pts=dictionary['winner_score'],tag=str(dictionary['winner'] + dictionary['loser']), time=timezone.now())
-            current = Score.objects.get(team=winner, tag=str(dictionary['winner'] + dictionary['loser']))
-            current.active_squad.add(*squads)
-            current.save()
-        y = Team.objects.filter(city=dictionary['loser'])
-        if y:
-            loser = Team.objects.get(city=dictionary['loser'])
-            squads = list(Squad.objects.filter(roster__name=winner.name))
-            Score.objects.create(team=loser, pts=dictionary['loser_score'], tag=str(dictionary['winner'] + dictionary['loser']), time=timezone.now())
-            current = Score.objects.get(team=loser, tag=str(dictionary['winner'] + dictionary['loser']))
-            current.active_squad.add(*squads)
-            current.save()
+    # for dictionary in soccer:
+    #     x = Team.objects.filter(city=dictionary['winner'])
+    #     if x:
+    #         winner = Team.objects.get(city=dictionary['winner'])
+    #         squads = list(Squad.objects.filter(roster__name=winner.name))
+    #         Score.objects.create(team=winner, pts=dictionary['winner_score'],tag=str(dictionary['winner'] + dictionary['loser']), time=timezone.now())
+    #         current = Score.objects.get(team=winner, tag=str(dictionary['winner'] + dictionary['loser']))
+    #         current.active_squad.add(*squads)
+    #         current.save()
+    #     y = Team.objects.filter(city=dictionary['loser'])
+    #     if y:
+    #         loser = Team.objects.get(city=dictionary['loser'])
+    #         squads = list(Squad.objects.filter(roster__name=winner.name))
+    #         Score.objects.create(team=loser, pts=dictionary['loser_score'], tag=str(dictionary['winner'] + dictionary['loser']), time=timezone.now())
+    #         current = Score.objects.get(team=loser, tag=str(dictionary['winner'] + dictionary['loser']))
+    #         current.active_squad.add(*squads)
+    #         current.save()
 
 
     def get_context_data(self):
@@ -136,7 +136,7 @@ class MatchupDetailView(DetailView):
         target = Matchup.objects.get(id=self.kwargs['pk'])
         context['test'] = target.get_home_info()
         context['home_score'] = target.get_home_score
-        context['away_score'] = target.get_away_score
+        context['away_score'] = round(target.get_away_score(),3)
         context['home_squad_teams'] = target.get_home_info()[0]
         context['home_squad_scores'] = target.get_home_info()[1]
         context['home_squad_sports'] = target.get_home_info()[2]
@@ -145,6 +145,15 @@ class MatchupDetailView(DetailView):
         context['away_squad_sports'] = target.get_away_info()[2]
         context['home_record'] = target.home.wins()
         context['away_record'] = target.away.wins()
+        current = target.week
+        if Matchup.objects.filter(week=current+1, home=self.request.user.squad):
+            context['next_week'] = Matchup.objects.get(week=current+1, home=self.request.user.squad)
+        if Matchup.objects.filter(week=current+1, away=self.request.user.squad):
+            context['next_week'] = Matchup.objects.get(week=current+1, away=self.request.user.squad)
+        if Matchup.objects.filter(week=current-1, home=self.request.user.squad):
+            context['last_week'] = Matchup.objects.get(week=current-1, home=self.request.user.squad)
+        if Matchup.objects.filter(week=current-1, away=self.request.user.squad):
+            context['last_week'] = Matchup.objects.get(week=current-1, away=self.request.user.squad)
 
 
         return context

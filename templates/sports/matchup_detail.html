@@ -3,6 +3,14 @@
 <h2>WEEK {{ matchup.week }}</h2>
 {{ matchup.tues_start }} - {{ matchup.tues_end }}
 <hr>
+{% if last_week %}
+<a href="{% url 'matchup_detail_view' last_week.id %}">Last Week</a>
+{% endif %}
+{% if next_week %}
+<a href="{% url 'matchup_detail_view' next_week.id %}">Next Week</a>
+{% endif %}
+
+
 
 <div class="row">
   <div class="col m6">

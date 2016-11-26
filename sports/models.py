@@ -208,13 +208,13 @@ class Matchup(models.Model):
 
     def get_home_score(self):
         group = Score.objects.filter(active_squad=self.home)
-        total = sum([score.pts for score in group])
-        return total
+        total = sum([score.pts for score in group if score.is_current(self)])
+        return round(total,3)
 
     def get_away_score(self):
         group = Score.objects.filter(active_squad=self.away)
-        total = sum([score.pts for score in group])
-        return total
+        total = sum([score.pts for score in group if score.is_current(self)])
+        return round(total,3)
 
 class Draft(models.Model):
     league = models.OneToOneField(League)
