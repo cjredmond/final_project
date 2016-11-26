@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{counter}}</h2>
+<h2>{{ active }}</h2>
+
+{% for team in user.squad.roster.all %}
+{{ team }}-{{ team.sport }}<br>
+{% endfor %}
+<hr>
+{% if request.user.squad == active %}
+<div class="row">
+  <div class="col m4">
+    {% for team in hockey %}
+    {{ team }} {{ team.ppg }}
+    {% if checker_h %}
+    <a href="{% url 'squad_draft_view' request.user.squad.id team.id %}">Draft</a><br>
+    {% endif %}
+    {% endfor %}
+  </div>
+  <div class="col m4">
+    {% for team in football %}
+    {{ team }} {{ team.ppg }}
+    {% if checker_f %}
+    <a href="{% url 'squad_update_view' request.user.squad.id team.id %}">Draft</a><br>
+    {% endif %}
+    {% endfor %}
+  </div>
+  <div class="col m4">
+    {% for team in basketball %}
+    {{ team }} {{ team.ppg }}
+    {% if checker_k %}
+    <a href="{% url 'squad_update_view' request.user.squad.id team.id %}">Draft</a><br>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}

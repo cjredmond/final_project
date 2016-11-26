@@ -56,6 +56,8 @@ class Team(models.Model):
     pts_proj = models.IntegerField()
 
     def __str__(self):
+        if self.sport == 's':
+            return self.city
         return self.name
 
     def week_score(self,matchup):
@@ -214,9 +216,21 @@ class Matchup(models.Model):
         total = sum([score.pts for score in group])
         return total
 
-# class Draft(models.Model):
-#     league = models.OneToOneField(league)
-#
-#     @property
-#     def draft(self):
-#         teams = self.league.squad_set.all()
+class Draft(models.Model):
+    league = models.OneToOneField(League)
+    start = models.DateTimeField(auto_now_add=True)
+
+    def get_squads(self):
+        return self.league.get_squads
+    def whos_pick(self, pick):
+        squads = list(self.get_squads())
+        squad_1_numbers = [squads[0],[1,12,13,24,25,36,37,48,49]]
+        squad_2_numbers = [squads[1],[2,11,14,23,26,35,38,47,50]]
+        squad_3_numbers = [squads[2],[3,10,15,22,27,34,39,46,51]]
+        squad_4_numbers = [squads[3],[4,9,16,21,28,33,40,45,52]]
+        squad_5_numbers = [squads[4],[5,8,17,20,29,32,41,44,53]]
+        squad_6_numbers = [squads[5],[6,7,18,19,30,31,42,43,54]]
+        pick_list = [squad_1_numbers, squad_2_numbers, squad_3_numbers, squad_4_numbers, squad_5_numbers, squad_6_numbers]
+        for group in pick_list:
+            if pick in group[1]:
+                return group[0]

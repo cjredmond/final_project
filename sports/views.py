@@ -3,13 +3,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from sports.models import Team, Squad, League, Matchup, Score
+from sports.models import Team, Squad, League, Matchup, Score, Draft
 from django.urls import reverse, reverse_lazy
 from datetime import datetime, timedelta, timezone
 from sports.forms import LeagueForm
 from sports.scraper import nba_scores, usable_data, fix_names
 from sports.nfl_scraper import nfl_scores, nfl_usable_data
 from sports.nhl_scraper import nhl_scores, nhl_usable_data
+from sports.soccer_api import soccer, soccer_scorer
 from sports.tasks import cal
 from django.utils import timezone
 
@@ -20,6 +21,26 @@ class UserCreateView(CreateView):
 
 class IndexView(TemplateView):
     template_name = "index.html"
+    soccer = soccer_scorer(soccer())
+
+    for dictionary in soccer:
+        x = Team.objects.filter(city=dictionary['winner'])
+        if x:
+            winner = Team.objects.get(city=dictionary['winner'])
+            squads = list(Squad.objects.filter(roster__name=winner.name))
+            Score.objects.create(team=winner, pts=dictionary['winner_score'],tag=str(dictionary['winner'] + dictionary['loser']), time=timezone.now())
+            current = Score.objects.get(team=winner, tag=str(dictionary['winner'] + dictionary['loser']))
+            current.active_squad.add(*squads)
+            current.save()
+        y = Team.objects.filter(city=dictionary['loser'])
+        if y:
+            loser = Team.objects.get(city=dictionary['loser'])
+            squads = list(Squad.objects.filter(roster__name=winner.name))
+            Score.objects.create(team=loser, pts=dictionary['loser_score'], tag=str(dictionary['winner'] + dictionary['loser']), time=timezone.now())
+            current = Score.objects.get(team=loser, tag=str(dictionary['winner'] + dictionary['loser']))
+            current.active_squad.add(*squads)
+            current.save()
+
 
     def get_context_data(self):
         context = super().get_context_data()
@@ -148,6 +169,18 @@ class SquadUpdateView(UpdateView):
         instance.roster.add(target)
         return super().form_valid(form)
 
+class SquadDraftView(UpdateView):
+    model = Squad
+    fields = []
+    def get_success_url(self, **kwargs):
+        target = Squad.objects.get(id=self.kwargs['pk'])
+        return reverse('draft_view', args=str(target.league.draft.id))
+    def form_valid(self, form, **kwargs):
+        target = Team.objects.get(id=self.kwargs['sk'])
+        instance = form.save(commit=False)
+        instance.roster.add(target)
+        return super().form_valid(form)
+
 class SquadDropView(UpdateView):
     model = Squad
     fields = []
@@ -158,11 +191,27 @@ class SquadDropView(UpdateView):
         instance.roster.remove(target)
         return super().form_valid(form)
 
-class DraftView(TemplateView):
+class DraftView(DetailView):
+    model = Draft
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        target = League.objects.get(id=self.kwargs['pk'])
-        dt = timedelta(seconds=10)
-        context['now'] = timezone.now()
-        
+        target = Draft.objects.get(id=self.kwargs['pk'])
+        squads = target.league.squad_set.all()
+        dt = timedelta(seconds=60)
+        start = target.start
+        soccer = Team.objects.filter(sport="s").exclude(squad__league=target.league)
+        hockey = Team.objects.filter(sport="h").exclude(squad__league=target.league)
+        football = Team.objects.filter(sport="f").exclude(squad__league=target.league)
+        basketball = Team.objects.filter(sport="k").exclude(squad__league=target.league)
+        context['football'] = sorted(football, key=lambda t: -t.total_points())
+        context['basketball'] = sorted(basketball, key=lambda t: -t.total_points())
+        context['hockey'] = sorted(hockey, key=lambda t: -t.ppg())
+        context['soccer'] = sorted(soccer, key=lambda t: -t.total_points())
+        counter = Team.objects.filter(squad__league=target.league).count()
+        context['checker_s'] = self.request.user.squad.checker('s')
+        context['checker_h'] = self.request.user.squad.checker('h')
+        context['checker_f'] = self.request.user.squad.checker('f')
+        context['checker_k'] = self.request.user.squad.checker('k')
+        context['counter'] = counter
+        context['active'] = target.whos_pick(counter+1)
         return context
