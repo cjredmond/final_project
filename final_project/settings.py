@@ -124,6 +124,6 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERYBEAT_SCHEDULE = {
     'add-every-5-seconds': {
         'task': 'sports.tasks.cal',
-        'schedule': 60
+        'schedule': 300
     },
 }

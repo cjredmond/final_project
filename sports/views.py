@@ -93,7 +93,7 @@ class LeagueDetailView(DetailView):
         context['schedule'] = schedule
         context['squads'] = squads
         context['duration'] = target.duration()
-        # context['standings'] = sorted(squads, key=lambda t: -t.total_proj)
+        context['standings'] = sorted(squads, key=lambda t: -t.wins())
         return context
 
 class SquadDetailView(DetailView):
@@ -114,22 +114,9 @@ class SquadDetailView(DetailView):
         context['hockey'] = sorted(hockey, key=lambda t: -t.total_points())
         context['soccer'] = sorted(soccer, key=lambda t: -t.total_points())
         context['day'] = datetime.now().weekday
-        context['record'] = target.wins()
+        context['wins'] = target.wins()
+        context['losses'] = target.losses()
         return context
-#
-# class TeamUpdateView(UpdateView):
-#     model = Team
-#     fields = []
-#     def get_success_url(self, **kwargs):
-#         return "/"
-#         #return reverse_lazy('squad_detail_view', args=str(self.request.user.squad.id))
-#     def form_valid(self, form):
-#         instance = form.save(commit=False)
-#         if instance.squad == self.request.user.squad:
-#             instance.squad = None
-#         else:
-#             instance.squad = self.request.user.squad
-#         return super().form_valid(form)
 
 class MatchupDetailView(DetailView):
     model = Matchup
@@ -174,6 +161,11 @@ class SquadCreateView(CreateView):
 class SquadUpdateView(UpdateView):
     model = Squad
     fields = []
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        target = Team.objects.get(id=self.kwargs['sk'])
+        context['target'] = target
+        return context
     def get_success_url(self, **kwargs):
         target = Squad.objects.get(id=self.kwargs['pk'])
         return reverse('squad_detail_view', args=(str(target.id),))
@@ -186,6 +178,11 @@ class SquadUpdateView(UpdateView):
 class SquadDraftView(UpdateView):
     model = Squad
     fields = []
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        target = Team.objects.get(id=self.kwargs['sk'])
+        context['target'] = target
+        return context
     def get_success_url(self, **kwargs):
         target = Squad.objects.get(id=self.kwargs['pk'])
         return reverse('draft_view', args=str(target.league.draft.id))
@@ -199,6 +196,11 @@ class SquadDropView(UpdateView):
     model = Squad
     fields = []
     success_url = "/"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        target = Team.objects.get(id=self.kwargs['sk'])
+        context['target'] = target
+        return context
     def form_valid(self, form, **kwargs):
         target = Team.objects.get(id=self.kwargs['sk'])
         instance = form.save(commit=False)
@@ -227,5 +229,6 @@ class DraftView(DetailView):
         context['checker_f'] = self.request.user.squad.checker('f')
         context['checker_k'] = self.request.user.squad.checker('k')
         context['counter'] = counter
+        context['pick'] = counter + 1
         context['active'] = target.whos_pick(counter+1)
         return context

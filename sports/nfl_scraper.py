@@ -61,4 +61,5 @@ def nfl_usable_data(data):
                     info['tag'] = x[7]
                 view_data.append(info)
     return view_data
-x = nfl_usable_data(fix_names(nfl_scores()))
+# x = nfl_usable_data(fix_names(nfl_scores()))
+# print(x)

@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
+<h2>{{ target }}</h2> Pts this season: {{ target.total_points }} <br> Sport Rank: {{ target.rank }}<br> PPG: {{ target.ppg }}<br> % Owned: {{ target.owned_per}}
 <form class="" action="" method="post">
   {% csrf_token %}
 {{ form }}
-<input type="submit" name="" value="submit">
+<input class='btn-large blue' type="submit" name="" value="CONFIRM">
 
 </form>
 {% endblock %}

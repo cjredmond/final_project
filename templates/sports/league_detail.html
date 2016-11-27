@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<nav>
+<nav class='blue'>
   <div class="nav-wrapper">
     <ul>
       <li><a href="{% url 'logout' %}">Logout</a></li>
@@ -27,22 +27,65 @@
 <a href="{% url 'league_update_view' league.id %}">Start!</a>
 {% endif %}
 {% endif %} -->
-<a class="waves-effect waves-light btn-large"href="{% url 'squad_detail_view' request.user.squad.id %}">Team</a>
+<a class="waves-effect waves-light btn-large blue"href="{% url 'squad_detail_view' request.user.squad.id %}">Team</a>
 
 
 <div class="row">
   <div class="col m6">
 {% for game in current_games %}
 
-<a href="{% url 'matchup_detail_view' game.id %}">{{ game.home }} {{ game.get_home_score}}
-<br>{{ game.away }} {{ game.get_away_score}}</a><hr>
+<div class="card-panel league-matchup-box">
+  <div class="row">
+    <div class="col m8">
+      <div class="row">
+        <div class="col m8">
+          {{ game.home }}
+        </div>
+        <div class="col m4">
+          {{ game.get_home_score }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col m8">
+          {{ game.away }}
+        </div>
+        <div class="col m4">
+          {{ game.get_away_score }}
+        </div>
+      </div>
+    </div>
+    <div class="col m4">
+      <a class='btn-large matchup-link' href="{% url 'matchup_detail_view' game.id %}">Matchup</a>
+    </div>
+  </div>
+
+</div>
+
 {% endfor %}
   </div>
   <div class="col m6">
-    {% for team in standings %}
-    {{ team }} - {{ team.total_proj }}<br>
-    {% endfor %}
+    <div class="card">
+    <div class="row league-detail-standings-top">
+      <div class="col m2"></div>
+      <div class="col m5">Team</div>
+      <div class="col m1">Wins</div>
+      <div class="col m1">Losses</div>
+    </div>
+    <div class="row league-detail-standings">
+      <div class="col m2"></div>
+      <div class="col m5">
+        {% for team in standings %} {{ team }} <br>{% endfor %}
+      </div>
+      <div class="col m1">
+        {% for team in standings %} {{ team.wins }}<br> {% endfor %}
+      </div>
+      <div class="col m1">
+        {% for team in standings %} {{ team.losses }}<br> {% endfor %}
+      </div>
+      </div>
+    </div>
   </div>
+
 </div>
 
 

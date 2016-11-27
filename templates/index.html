@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<nav>
+<nav class='blue'>
   <div class="nav-wrapper">
     <ul>
       <li><a href="{% url 'login' %}">Login</a></li>
@@ -31,7 +31,11 @@
 {% endfor %}
 {% endif %}
 
+<a href="{% url 'squad_detail_view' user.squad.id %}">My Team</a>
+
+{% if not request.user.squad %}
 <a href="{% url 'league_create_view' %}">New League</a>
+{% endif %}
 
 
 

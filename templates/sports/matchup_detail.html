@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
+<nav class='blue'>
+  <div class="nav-wrapper">
+    <ul>
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+      <li><a href="{% url 'index_view' %}">Home</a></li>
+      <li><a href="{% url 'league_detail_view' user.squad.league.id%}">League</a></li>
+    </ul>
+  </div>
+</nav>
 <h2>WEEK {{ matchup.week }}</h2>
 {{ matchup.tues_start }} - {{ matchup.tues_end }}
 <hr>
@@ -18,7 +27,7 @@
       <div class="card-content white-text">
         {{ matchup.home }}<br>
         {{ matchup.home.user }}<br>
-        {{ home_record }}
+        {{ matchup.home.wins }} - {{ matchup.home.losses }}
       </div>
     </div>
 
@@ -60,7 +69,9 @@
   </div>
   <div class="col m6">
     <div class="card-panel">
-  <h4>{{ matchup.away }} {{ away_record }}</h4>
+      {{ matchup.away }}<br>
+      {{ matchup.away.user }}<br>
+      {{ matchup.away.wins }} - {{ matchup.away.losses }}
     </div>
       <div class="row">
         <div class="row">

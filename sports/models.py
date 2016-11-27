@@ -131,16 +131,18 @@ class Squad(models.Model):
     def wins(self):
         games = Matchup.objects.filter(away=self) | Matchup.objects.filter(home=self)
         wins = 0
-        loss = 0
         for game in games:
             if game.win == self:
                 wins += 1
-            elif not game.win:
-                pass
-            else:
-                loss += 1
-        return wins,loss
-
+        return wins
+    def losses(self):
+        games = Matchup.objects.filter(away=self) | Matchup.objects.filter(home=self)
+        losses = 0
+        for game in games:
+            if game.win:
+                if game.win != self:
+                    losses += 1
+        return losses
 
 class Score(models.Model):
     pts = models.FloatField(default=0)

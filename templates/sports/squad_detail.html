@@ -1,8 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3> {{ record }}</h3>
-<a href="{% url 'league_detail_view' user.squad.league.id %}">League</a>
-<h1>{{ squad.name }}</h1>
+
+<nav class='blue'>
+  <div class="nav-wrapper">
+    <ul>
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+      <li><a href="{% url 'index_view' %}">Home</a></li>
+      <li><a href="{% url 'league_detail_view' user.squad.league.id %}">League</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<h1>{{ squad.name }}, {{ wins }} - {{ losses }}</h1>
+<h3></h3>
   <div class="row squad-detail-lineup-top valign-wrapper">
     <div class="col m2 squad-detail-team">Team</div>
     <div class="col m1">Action</div>
@@ -47,21 +58,39 @@
   <div id="test1" class="col s12">
     <h2>Hockey</h2>
     {% for team in hockey %}
-    {{team}} - {{team.pts_proj}}
-    {% if checker_h %}
+    <div class="squad-detail-free-agent left-align">
+      <div class="col m2">
+        {{ team }}
+      </div>
+      <div class="col m1">
+        {{ team.rank }}
+      </div>
+      <div class="col m1">
+        {{ team.ppg }}
+      </div>
+    </div>
+    {% if checker_k %}
     <a href="{% url 'squad_update_view' squad.id team.id %}">Add</a>
     {% endif %}
-    <br>
     {% endfor %}
   </div>
   <div id="test2" class="col s12">
       <h2>Football</h2>
       {% for team in football %}
-      {{team}} -{{team.pts_proj}}
-      {% if checker_f %}
+      <div class="squad-detail-free-agent left-align">
+        <div class="col m2">
+          {{ team }}
+        </div>
+        <div class="col m1">
+          {{ team.rank }}
+        </div>
+        <div class="col m1">
+          {{ team.ppg }}
+        </div>
+      </div>
+      {% if checker_k %}
       <a href="{% url 'squad_update_view' squad.id team.id %}">Add</a>
       {% endif %}
-      <br>
       {% endfor %}
       </div>
   <div id="test3" class="col s12">
@@ -81,7 +110,6 @@
       {% if checker_k %}
       <a href="{% url 'squad_update_view' squad.id team.id %}">Add</a>
       {% endif %}
-      <br>
       {% endfor %}</div>
 
 </div>

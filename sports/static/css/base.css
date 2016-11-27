@@ -32,7 +32,7 @@
 
 .squad-detail-free-agent {
   height: 25px;
-  border: 1px solid lightgrey;
+  border: 2px solid lightgrey;
   border-radius: 10px;
   background-color: lightgreen;
   padding-left: 2px;
@@ -55,4 +55,25 @@
   font-size: 20px;
   border: 2px solid black;
   border-radius: 5px;
+}
+
+.league-detail-standings {
+  font-size: 20px;
+}
+
+.league-detail-standings-top {
+  font-size: 24px;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.matchup-link {
+  height: 40px;
+}
+
+.league-matchup-box {
+  height: 100px;
+  font-size: 16px;
 }
