@@ -58,8 +58,11 @@ class LeagueCreateView(CreateView):
 
 class LeagueUpdateView(UpdateView):
     model = League
-    success_url = "/"
     fields = []
+    success_url = "/"
+    # def get_success_url(self, **kwargs):
+    #     target = League.objects.get(id=self.kwargs['pk'])
+    #     return ('draft_view', args=str(target.draft.id))
     def form_valid(self, form):
         instance = form.save(commit=False)
         instance.live = True
@@ -171,7 +174,9 @@ class SquadCreateView(CreateView):
 class SquadUpdateView(UpdateView):
     model = Squad
     fields = []
-    success_url = "/"
+    def get_success_url(self, **kwargs):
+        target = Squad.objects.get(id=self.kwargs['pk'])
+        return reverse('squad_detail_view', args=(str(target.id),))
     def form_valid(self, form, **kwargs):
         target = Team.objects.get(id=self.kwargs['sk'])
         instance = form.save(commit=False)
@@ -206,7 +211,7 @@ class DraftView(DetailView):
         context = super().get_context_data(**kwargs)
         target = Draft.objects.get(id=self.kwargs['pk'])
         squads = target.league.squad_set.all()
-        dt = timedelta(seconds=60)
+        dt = timedelta(seconds=10)
         start = target.start
         soccer = Team.objects.filter(sport="s").exclude(squad__league=target.league)
         hockey = Team.objects.filter(sport="h").exclude(squad__league=target.league)
