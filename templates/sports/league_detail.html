@@ -22,13 +22,14 @@
 <p>There are currently {{ amount }} team(s) in this league</p>
 {% endif %}
 
-<!-- {% if league.live == False %}
+{% if league.live == False %}
 {% if league.limit == amount %}
 <a href="{% url 'league_update_view' league.id %}">Start!</a>
 {% endif %}
-{% endif %} -->
+{% endif %}
+{% if league.live %}
 <a class="waves-effect waves-light btn-large blue"href="{% url 'squad_detail_view' request.user.squad.id %}">Team</a>
-
+{% endif %}
 
 <div class="row">
   <div class="col m6">
