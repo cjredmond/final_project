@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{% if request.user.squad and request.user.squad.league %}
 <h2>{{ target }}</h2> Pts this season: {{ target.total_points }} <br> Sport Rank: {{ target.rank }}<br> PPG: {{ target.ppg }}<br> % Owned: {{ target.owned_per}}
+{% elif not request.user.squad %}
+<h2>Choose a name for your team</h2>
+{% elif request.user.squad and not request.user.squad.league %}
+<h4>Confirm joining this league?</h4>
+{% endif %}
+
+
 <form class="" action="" method="post">
   {% csrf_token %}
 {{ form }}

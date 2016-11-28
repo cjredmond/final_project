@@ -10,11 +10,12 @@ class DateInput(forms.DateTimeInput):
 
 
 class LeagueForm(ModelForm):
-
+    start_date=forms.CharField()
+    end_date=forms.CharField()
     class Meta:
         model = League
-        fields = ['name', 'start', 'end']
-        widgets = {
-            'start': DateInput(),
-            'end': DateInput(),
-        }
+        fields = ['name','start_date','end_date']
+        # widgets = {
+        #     'start': DateInput(),
+        #     'end': DateInput(),
+        # }

@@ -54,8 +54,13 @@ class LeagueCreateView(CreateView):
     form_class = LeagueForm
     def form_valid(self, form):
         instance = form.save(commit=False)
+        start = form.cleaned_data.get('start_date')
+        end = form.cleaned_data.get('end_date')
+        instance.start = datetime.strptime(start + ' 00:00:00', '%d %B, %Y %H:%M:%S')
+        instance.end = datetime.strptime(end + ' 00:00:00', '%d %B, %Y %H:%M:%S')
         instance.limit = 6
         return super().form_valid(form)
+
 
 class LeagueUpdateView(UpdateView):
     model = League
@@ -154,9 +159,8 @@ class SquadCreateView(CreateView):
     model = Squad
     success_url = "/"
     fields = ('name',)
-    def form_valid(self, form, **kwargs):
+    def form_valid(self, form):
         instance = form.save(commit=False)
-        instance.league = League.objects.get(id=self.kwargs['pk'])
         instance.user = self.request.user
         return super().form_valid(form)
 
@@ -251,5 +255,17 @@ class DraftView(DetailView):
                 squad.save()
             clock.time = 60
             clock.save()
-
         return context
+
+class SquadJoinView(UpdateView):
+    model = Squad
+    fields = []
+    def get_success_url(self, **kwargs):
+        target = League.objects.get(id=self.kwargs['sk'])
+        return reverse('league_detail_view', args=str(target.id))
+    def form_valid(self, form, **kwargs):
+        instance = form.save(commit=False)
+        squad = Squad.objects.get(id=self.kwargs['pk'])
+        league = League.objects.get(id=self.kwargs['sk'])
+        instance.league = league
+        return super().form_valid(form)

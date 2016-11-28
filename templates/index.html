@@ -2,40 +2,57 @@
 {% block content %}
 
 
+
 {% for league in leagues %}
 {% if request.user.squad.league == league %}
-<a href="{% url 'league_detail_view' league.id %}">{{ league }}</a>
+<a class="btn-large blue"href="{% url 'league_detail_view' league.id %}">League Home</a>
 {% endif %}
 {% endfor %}
+
+{% if request.user.squad.league %}
+<a class='btn-large blue' href="{% url 'squad_detail_view' request.user.squad.id %}">My Team</a>
+{% endif %}
 
 {% if not request.user.is_authenticated %}
 <a class="btn-large index-btn green"href="{% url 'user_create_view' %}">SIGN UP</a>
 -> Create an account first <br>
-<button type="button" class="btn-large index-btn">MAKE TEAM</button>
--> Create your team <br>
 <button type="button" class="btn-large index-btn">JOIN LEAGUE</button>
--> Join a league
+-> Join a league <br>
+<button type="button" class="btn-large index-btn">MAKE TEAM</button>
+-> Create your team
 {% endif %}
 
 {% if request.user.is_authenticated and not request.user.squad %}
 <div class="row">
   <div class="col m6">
-    <button type="button" class="btn-large index-btn">SIGN UP</button>
+    <button type="button" class="btn-large index-btn blue">SIGN UP</button>
     -> Signed up! <br>
+    <a class="btn-large index-btn green"href="{% url 'squad_create_view' %}">ADD TEAM</a>
+    -> Create your team! <br>
+    <button type="button" class="btn-large index-btn">JOIN LEAGUE</button>
+    -> Join a league
+  </div>
+</div>
+{% endif %}
+{% if request.user.is_authenticated and not request.user.squad.league %}
+<div class="row">
+  <div class="col m6">
+    <button type="button" class="btn-large index-btn blue">SIGN UP</button>
+    -> Signed up! <br>
+    <button type="button" class="btn-large index-btn blue">CREATE TEAM</button>
+    -> Team created! <br>
     <button type="button" class="btn-large index-btn green">JOIN LEAGUE</button>
-    -> Join a league <br>
-    <button type="button" class="btn-large index-btn">ADD TEAM</button>
-    -> Add your team!
+    -> Choose a league to join! <br>
   </div>
   <div class="col m6">
+    <h2>Open Leagues</h2>
     {% for league in leagues %}
     {% if league.live == False and league.limit != league.get_squads.count %}
-    {{ league }}
+    <a href="{% url 'league_detail_view' league.id %}">{{ league }}</a>
     {% endif %}
     {% endfor %}
   </div>
 </div>
-
 
 {% endif %}
 

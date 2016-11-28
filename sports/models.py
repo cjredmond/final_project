@@ -81,7 +81,7 @@ class Team(models.Model):
     def owned_per(self):
         l = League.objects.all().count()
         t = Squad.objects.filter(roster=self).count()
-        return t/l * 100
+        return round(t/l * 100,1)
     def ppg(self):
         g = Score.objects.filter(team=self).count()
         t = float(self.total_points())
@@ -94,7 +94,7 @@ class Team(models.Model):
 class Squad(models.Model):
     user = models.OneToOneField('auth.User')
     name = models.CharField(max_length=40)
-    league = models.ForeignKey(League)
+    league = models.ForeignKey(League,null=True,blank=True)
     sched_id = models.IntegerField(null=True,blank=True)
     roster = models.ManyToManyField(Team, blank=True)
 

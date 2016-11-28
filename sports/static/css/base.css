@@ -96,3 +96,11 @@
 .green {
   background-color: green;
 }
+
+.league-detail-top {
+  height: 20px;
+}
+
+.team-home {
+  width: 400px;
+}

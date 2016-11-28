@@ -1,17 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="row league-detail-top">
 
+</div>
 
-{% if league.limit == amount %}
+<div class="row">
+<div class="col m6">
+
+{% if league.limit == amount and not league.live %}
 <h4>League is Full</h4>
-{% else %}
-{% if not request.user.squad %}
-<a href="{% url 'squad_create_view' league.id %}">Create a team</a>
-{% endif %}
-{% endif %}
-{% if not league.limit == amount %}
 <p>There are currently {{ amount }} team(s) in this league</p>
+Start: {{ league.start.date }} End: {{ league.end.date }}<br>
 {% endif %}
+
+
+
+{% if league.live == False and leage.limit != amount %}
+{% if not request.user.squad.league %}
+<a class="btn-large blue" href="{% url 'league_join_view' request.user.squad.id league.id %}">Join!</a>
+{% endif %}
+{% endif %}
+
+
 
 {% if league.live == False %}
 {% if league.limit == amount %}
@@ -21,15 +31,15 @@
 {% endif %}
 {% endif %}
 
+{% if league.draft %}
 {% if teams_ready == 0 %}
-<a href="{% url 'draft_view' %}">Draft!</a>
+<a href="{% url 'draft_view' league.draft.id %}">Draft!</a>
 {% endif %}
-{% if league.live %}
-<a class="waves-effect waves-light btn-large blue"href="{% url 'squad_detail_view' request.user.squad.id %}">Team</a>
 {% endif %}
 
+
 <div class="row">
-  <div class="col m6">
+  <div class="col m12">
 {% for game in current_games %}
 
 <div class="card-panel league-matchup-box">
@@ -61,7 +71,18 @@
 
 {% endfor %}
   </div>
+</div>
+</div>
+
+
   <div class="col m6">
+    <div class="card-panel">
+      {% if league.live %}
+      <a class="waves-effect waves-light btn-large blue team-home"href="{% url 'squad_detail_view' request.user.squad.id %}">Team</a>
+      {% endif %}
+    </div>
+
+
     <div class="card">
     <div class="row league-detail-standings-top">
       <div class="col m2"></div>
@@ -83,10 +104,8 @@
       </div>
     </div>
   </div>
-
 </div>
-
-
+</div>
 
 
 {% endblock %}

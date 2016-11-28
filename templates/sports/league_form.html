@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 {% block content %}
-<input type="text" name="name" value="">
-<input type="date" class="datepicker" name='start'>
-<input type="date" class="datepicker" name='end'>
-<!-- <form class="" action="" method="post">
+
+<form class="" action="" method="post">
   {% csrf_token %}
   {{ form.non_field_errors }}
   <div class="fieldWrapper">
@@ -13,15 +11,17 @@
       {{ form.name }}
   </div>
   <div class="fieldWrapper">
-      {{ form.start.errors }}
-      <label for="{{ form.start.id_for_label }}">Start:</label>
-      {{ form.start }}
+      {{ form.start_date.errors }}
+      <label for="{{ form.start_date.id_for_label }}">Start:</label>
+      {{ form.start_date|add_class:"datepicker" }}
+
   </div>
   <div class="fieldWrapper">
-      {{ form.end.errors }}
-      <label for="{{ form.end.id_for_label }}">End:</label>
-      {{ form.end }}
-  </div> -->
+      {{ form.end_date.errors }}
+      <label for="{{ form.end_date.id_for_label }}">End:</label>
+      {{ form.end_date|add_class:"datepicker" }}
+  </div>
+
 
 
 
