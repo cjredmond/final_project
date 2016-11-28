@@ -88,3 +88,11 @@
   background-color: grey;
   height: 130vh;
 }
+
+.index-btn {
+  width: 200px;
+}
+
+.green {
+  background-color: green;
+}

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from sports.models import Team, Squad, League, Matchup, Score, Draft
+from sports.models import Team, Squad, League, Matchup, Score, Draft, Clock
 from django.urls import reverse, reverse_lazy
 from datetime import datetime, timedelta, timezone
 from sports.forms import LeagueForm
@@ -54,6 +54,7 @@ class LeagueCreateView(CreateView):
     form_class = LeagueForm
     def form_valid(self, form):
         instance = form.save(commit=False)
+        instance.limit = 6
         return super().form_valid(form)
 
 class LeagueUpdateView(UpdateView):
@@ -191,6 +192,9 @@ class SquadDraftView(UpdateView):
         target = Team.objects.get(id=self.kwargs['sk'])
         instance = form.save(commit=False)
         instance.roster.add(target)
+        clock = Clock.objects.get(id=1)
+        clock.time=60
+        clock.save()
         return super().form_valid(form)
 
 class SquadDropView(UpdateView):
@@ -216,6 +220,7 @@ class DraftView(DetailView):
         squads = target.league.squad_set.all()
         dt = timedelta(seconds=10)
         start = target.start
+        clock = Clock.objects.get(id=1)
         soccer = Team.objects.filter(sport="s").exclude(squad__league=target.league)
         hockey = Team.objects.filter(sport="h").exclude(squad__league=target.league)
         football = Team.objects.filter(sport="f").exclude(squad__league=target.league)
@@ -232,4 +237,19 @@ class DraftView(DetailView):
         context['counter'] = counter
         context['pick'] = counter + 1
         context['active'] = target.whos_pick(counter+1)
+        context['clock'] = clock
+        if clock.time == 0:
+            squad = target.whos_pick(counter+1)
+            if squad.checker('h'):
+                squad.roster.add(sorted(hockey, key=lambda t: -t.ppg())[0])
+                squad.save()
+            elif squad.checker('k'):
+                squad.roster.add(sorted(basketball, key=lambda t: -t.total_points())[0])
+                squad.save()
+            else:
+                squad.roster.add(football[0])
+                squad.save()
+            clock.time = 60
+            clock.save()
+
         return context

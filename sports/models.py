@@ -9,7 +9,6 @@ from operator import itemgetter
 class League(models.Model):
     name = models.CharField(max_length=40)
     limit = models.IntegerField()
-    player = models.ManyToManyField('auth.User')
     live = models.BooleanField(default=False)
     start = models.DateTimeField(null=True)
     end = models.DateTimeField(null=True)
@@ -239,3 +238,4 @@ class Draft(models.Model):
 
 class Clock(models.Model):
     time = models.IntegerField(default=60)
+    draft = models.OneToOneField(Draft)

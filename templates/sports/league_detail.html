@@ -1,15 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<nav class='blue'>
-  <div class="nav-wrapper">
-    <ul>
-      <li><a href="{% url 'logout' %}">Logout</a></li>
-      <li><a href="{% url 'index_view' %}">Home</a></li>
-    </ul>
-  </div>
-</nav>
-
 
 {% if league.limit == amount %}
 <h4>League is Full</h4>
@@ -75,8 +66,8 @@
     <div class="row league-detail-standings-top">
       <div class="col m2"></div>
       <div class="col m5">Team</div>
-      <div class="col m1">Wins</div>
-      <div class="col m1">Losses</div>
+      <div class="col m1">W</div>
+      <div class="col m1">L</div>
     </div>
     <div class="row league-detail-standings">
       <div class="col m2"></div>

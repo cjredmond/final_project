@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sports',
+    'widget_tweaks',
 
 ]
 
@@ -125,7 +126,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERYBEAT_SCHEDULE = {
     'add-every-5-minutes': {
         'task': 'sports.tasks.cal',
-        'schedule': 300
+        'schedule': 10
     },
 }
 CELERYBEAT_SCHEDULE = {

@@ -1,43 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<nav class='blue'>
-  <div class="nav-wrapper">
-    <ul>
-      <li><a href="{% url 'login' %}">Login</a></li>
-      <li><a href="{% url 'logout' %}">Logout</a></li>
-      <li><a href="{% url 'user_create_view' %}">Create User</a></li>
-    </ul>
 
-  </div>
-</nav>
-
-
-
-
-<hr>
 {% for league in leagues %}
 {% if request.user.squad.league == league %}
 <a href="{% url 'league_detail_view' league.id %}">{{ league }}</a>
 {% endif %}
 {% endfor %}
-<hr>
 
-{% if request.user.is_authenticated %}
-{% if not request.user.squad %}
-{% for league in leagues %}
-{% if not league.live %}
-<a href="{% url 'league_detail_view' league.id %}">{{ league }}</a>
+{% if not request.user.is_authenticated %}
+<a class="btn-large index-btn green"href="{% url 'user_create_view' %}">SIGN UP</a>
+-> Create an account first <br>
+<button type="button" class="btn-large index-btn">MAKE TEAM</button>
+-> Create your team <br>
+<button type="button" class="btn-large index-btn">JOIN LEAGUE</button>
+-> Join a league
 {% endif %}
-{% endfor %}
+
+{% if request.user.is_authenticated and not request.user.squad %}
+<div class="row">
+  <div class="col m6">
+    <button type="button" class="btn-large index-btn">SIGN UP</button>
+    -> Signed up! <br>
+    <button type="button" class="btn-large index-btn green">JOIN LEAGUE</button>
+    -> Join a league <br>
+    <button type="button" class="btn-large index-btn">ADD TEAM</button>
+    -> Add your team!
+  </div>
+  <div class="col m6">
+    {% for league in leagues %}
+    {% if league.live == False and league.limit != league.get_squads.count %}
+    {{ league }}
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+
 {% endif %}
-{% endif %}
-{% if request.user.is_authenticated %}
-<a href="{% url 'squad_detail_view' user.squad.id %}">My Team</a>
-{% endif %}
-{% if not request.user.squad %}
-<a href="{% url 'league_create_view' %}">New League</a>
-{% endif %}
+
+
 
 
 

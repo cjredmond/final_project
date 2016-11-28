@@ -13,7 +13,7 @@ class LeagueForm(ModelForm):
 
     class Meta:
         model = League
-        fields = ['name', 'limit', 'start', 'end']
+        fields = ['name', 'start', 'end']
         widgets = {
             'start': DateInput(),
             'end': DateInput(),

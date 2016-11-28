@@ -8,6 +8,19 @@
     <title></title>
   </head>
   <body>
+
+    <nav class='blue'>
+      <div class="nav-wrapper">
+        <ul>
+          <li><a href="{% url 'index_view' %}">Home</a></li>
+          <li><a href="{% url 'login' %}">Login</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+          <li><a href="{% url 'user_create_view'%}">Create New User</a></li>
+
+        </ul>
+      </div>
+    </nav>
+
     <div class="container">
 
 

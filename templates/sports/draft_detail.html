@@ -5,6 +5,8 @@
 
 <h2>Pick: {{ pick }}</h2>
 <h4>{{ active }} is on the clock</h4>
+{{ clock.time }}
+{{ hey }}
 
 <hr>
 <div class="row draft">
@@ -58,7 +60,7 @@
     {% if not active == user.squad %}
     <p>{{ active }} picks </p>
     {% for team in active.roster.all %}
-    {{ team }}
+    {{ team }}<br>
     {% endfor %}
     {% endif %}
 
