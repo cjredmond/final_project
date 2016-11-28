@@ -115,6 +115,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = "/"
+# LOGIN_REDIRECT_URL = "http://localhost:8000/draft/2/"
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 BROKER_URL = 'amqp://guest:guest@localhost//'
@@ -122,8 +123,14 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERYBEAT_SCHEDULE = {
-    'add-every-5-seconds': {
+    'add-every-5-minutes': {
         'task': 'sports.tasks.cal',
         'schedule': 300
+    },
+}
+CELERYBEAT_SCHEDULE = {
+    'add-every-1-second': {
+        'task': 'sports.tasks.timer',
+        'schedule': 1
     },
 }

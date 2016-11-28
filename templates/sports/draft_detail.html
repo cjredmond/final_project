@@ -1,43 +1,60 @@
 {% extends 'base.html' %}
 {% block content %}
 <!-- <meta http-equiv="refresh" content="5" /> -->
-<div class="draft">
-  <div class="container">
+<div class="">
+
 <h2>Pick: {{ pick }}</h2>
 <h4>{{ active }} is on the clock</h4>
+
 <hr>
-<div class="row">
+<div class="row draft">
   <div class="col m10">
-    {% if request.user.squad == active %}
+
     <div class="row">
-      <div class="col m4">
+      <div class="col m3">
         {% for team in hockey %}
         {{ team }} {{ team.ppg }}
+        {% if request.user.squad == active %}
         {% if checker_h %}
-        <a href="{% url 'squad_draft_view' request.user.squad.id team.id %}">Draft</a><br>
+        <a href="{% url 'squad_draft_view' request.user.squad.id team.id %}">X</a>
         {% endif %}
+        {% endif %}<br>
         {% endfor %}
       </div>
-      <div class="col m4">
+      <div class="col m3">
         {% for team in football %}
         {{ team }} {{ team.ppg }}
+        {% if request.user.squad == active %}
         {% if checker_f %}
-        <a href="{% url 'squad_update_view' request.user.squad.id team.id %}">Draft</a><br>
+        <a href="{% url 'squad_draft_view' request.user.squad.id team.id %}">X</a>
         {% endif %}
+        {% endif %}<br>
         {% endfor %}
       </div>
-      <div class="col m4">
+      <div class="col m3">
         {% for team in basketball %}
         {{ team }} {{ team.ppg }}
+        {% if request.user.squad == active %}
         {% if checker_k %}
-        <a href="{% url 'squad_update_view' request.user.squad.id team.id %}">Draft</a><br>
+        <a href="{% url 'squad_draft_view' request.user.squad.id team.id %}">X</a>
         {% endif %}
+        {% endif %}<br>
+        {% endfor %}
+      </div>
+      <div class="col m3">
+        {% for team in soccer %}
+        {{ team }} {{ team.ppg }}
+        {% if request.user.squad == active %}
+        {% if checker_s %}
+        <a href="{% url 'squad_draft_view' request.user.squad.id team.id %}">X</a>
+        {% endif %}
+        {% endif %}<br>
         {% endfor %}
       </div>
     </div>
-    {% endif %}
+
   </div>
-  <div class="col m2">
+  <div class="col m2 draft-side">
     {% if not active == user.squad %}
     <p>{{ active }} picks </p>
     {% for team in active.roster.all %}
@@ -45,14 +62,14 @@
     {% endfor %}
     {% endif %}
 
-    <p>Your team</p>
+    <p>{{ user.squad }}</p>
     {% for team in user.squad.roster.all %}
     {{ team.sport }} - {{ team }}<br>
     {% endfor %}
   </div>
 </div>
 </div>
-</div>
+
 
 
 {% endblock %}

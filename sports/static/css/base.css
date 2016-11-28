@@ -71,6 +71,8 @@
 
 .draft {
   background-color: lightgrey;
+  height: 130vh;
+  border: 2px solid darkgrey;
 }
 
 .matchup-link {
@@ -80,4 +82,9 @@
 .league-matchup-box {
   height: 100px;
   font-size: 16px;
+}
+
+.draft-side {
+  background-color: grey;
+  height: 130vh;
 }

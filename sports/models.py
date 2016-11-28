@@ -236,3 +236,6 @@ class Draft(models.Model):
         for group in pick_list:
             if pick in group[1]:
                 return group[0]
+
+class Clock(models.Model):
+    time = models.IntegerField(default=60)

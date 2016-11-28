@@ -88,6 +88,7 @@ class LeagueDetailView(DetailView):
         for game in schedule:
             if game.tues_start < datetime.now(timezone.utc) and game.tues_end > datetime.now(timezone.utc):
                 current_games.append(game)
+        context['teams_ready'] = Team.objects.filter(squad__league=target).count()
         context['current_games'] = current_games
         context['amount'] = squads.count()
         context['schedule'] = schedule

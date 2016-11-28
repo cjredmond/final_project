@@ -7,7 +7,7 @@ from celery import shared_task
 from sports.scraper import usable_data, fix_names, nba_scores
 from sports.nhl_scraper import nhl_scores, nhl_usable_data
 from sports.nfl_scraper import nfl_scores, nfl_usable_data
-from sports.models import Score, Team, Squad
+from sports.models import Score, Team, Squad, Clock
 from django.utils import timezone
 
 
@@ -137,3 +137,11 @@ def cal():
             current = Score.objects.get(team=loser,tag=dictionary['tag'])
             current.active_squad.add(*squads)
             current.save()
+
+@shared_task
+def timer():
+    clock = Clock.objects.get(id=1)
+    if clock.time == 0:
+        pass
+
+    clock.time = clock.time - 1
