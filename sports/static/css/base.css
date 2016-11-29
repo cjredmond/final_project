@@ -81,9 +81,13 @@
 
 .league-matchup-box {
   height: 100px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
+.league-detail-pic {
+  height: 25px;
+  width: 35px;
+}
 .draft-side {
   background-color: grey;
   height: 130vh;
@@ -116,4 +120,14 @@
 
 .index-rules-top {
   text-align: center;
+}
+
+.squad-detail-profile {
+  height: 100px;
+  padding-left: 20px;
+}
+
+.squad-card {
+  width: 400px;
+  font-size: 20px;
 }

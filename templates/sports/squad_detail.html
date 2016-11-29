@@ -1,7 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>{{ squad.name }}, {{ wins }} - {{ losses }}</h1>
+
+<div class="card squad-card">
+  <div class="row">
+<div class="col m4">
+  <div class="thumbnail">
+    <img class="squad-detail-profile" src="{{ MEDIA_URL }}{{ squad.image_url }}" alt="" />
+  </div>
+</div>
+<div class="col m8">
+{{ squad.name }} <br> <br>{{ wins }} - {{ losses }}
+</div>
+  </div>
+</div>
+
+
+
+<h1></h1>
 <h3></h3>
   <div class="row squad-detail-lineup-top valign-wrapper">
     <div class="col m2 squad-detail-team">Team</div>

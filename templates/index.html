@@ -19,6 +19,7 @@
     {% endif %}
   </div>
 </div>
+
 <div class="row rules">
   <div class="index-rules-top">
     <h3>Fantasy Sports App</h3>
@@ -30,7 +31,6 @@
       <li>Add/Drop teams during the season</li>
       <li>Once a team you own starts playing, you will be stuck with their score!</li>
     </ul>
-
 </div>
 
 
@@ -58,7 +58,7 @@
   </div>
 </div>
 {% endif %}
-{% if request.user.is_authenticated and not request.user.squad.league %}
+{% if request.user.squad and not request.user.squad.league %}
 <div class="row">
   <div class="col m6">
     <button type="button" class="btn-large index-btn blue">SIGN UP</button>

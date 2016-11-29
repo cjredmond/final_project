@@ -10,7 +10,7 @@
 {% endif %}
 
 
-<form class="" action="" method="post">
+<form class="" action="" method="post" enctype='multipart/form-data'>
   {% csrf_token %}
 {{ form }}
 <input class='btn-large blue' type="submit" name="" value="CONFIRM">

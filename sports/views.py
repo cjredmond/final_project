@@ -116,10 +116,14 @@ class SquadDetailView(DetailView):
         context['checker_h'] = target.checker('h')
         context['checker_f'] = target.checker('f')
         context['checker_k'] = target.checker('k')
-        context['football'] = sorted(football, key=lambda t: -t.total_points())
-        context['basketball'] = sorted(basketball, key=lambda t: -t.total_points())
-        context['hockey'] = sorted(hockey, key=lambda t: -t.total_points())
-        context['soccer'] = sorted(soccer, key=lambda t: -t.total_points())
+        # context['football'] = sorted(football, key=lambda t: -t.total_points())
+        # context['basketball'] = sorted(basketball, key=lambda t: -t.total_points())
+        # context['hockey'] = sorted(hockey, key=lambda t: -t.total_points())
+        # context['soccer'] = sorted(soccer, key=lambda t: -t.total_points())
+        context['football'] = football
+        context['basketball'] = basketball
+        context['hockey'] = hockey
+        context['soccer'] = soccer
         context['day'] = datetime.now().weekday
         context['wins'] = target.wins()
         context['losses'] = target.losses()
@@ -158,7 +162,7 @@ class MatchupDetailView(DetailView):
 class SquadCreateView(CreateView):
     model = Squad
     success_url = "/"
-    fields = ('name',)
+    fields = ('name', 'logo')
     def form_valid(self, form):
         instance = form.save(commit=False)
         instance.user = self.request.user

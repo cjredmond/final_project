@@ -117,6 +117,8 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = "/"
 # LOGIN_REDIRECT_URL = "http://localhost:8000/draft/2/"
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = 'media'
+MEDIA_URL = '/media/'
 
 BROKER_URL = 'amqp://guest:guest@localhost//'
 CELERY_ACCEPT_CONTENT = ['json']

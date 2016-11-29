@@ -70,8 +70,10 @@ class Team(models.Model):
     @property
     def get_scores(self):
         return self.score_set.all()
+
     def total_points(self):
         return round(sum(score.pts for score in self.get_scores),3)
+
     def rank(self):
         teams = Team.objects.filter(sport=self.sport)
         ranked = sorted(teams, key=lambda t: -t.total_points())
@@ -98,6 +100,7 @@ class Squad(models.Model):
     league = models.ForeignKey(League,null=True,blank=True)
     sched_id = models.IntegerField(null=True,blank=True)
     roster = models.ManyToManyField(Team, blank=True)
+    logo = models.FileField(null=True)
 
     def __str__(self):
         return self.name
@@ -108,8 +111,8 @@ class Squad(models.Model):
         for team in teams:
             if team.sport == sport:
                 count += 1
-        if count > 2:
-            return False
+                if count > 2:
+                    return False
         return True
 
     def score(self, matchup):
@@ -135,14 +138,19 @@ class Squad(models.Model):
             if game.win == self:
                 wins += 1
         return wins
+
     def losses(self):
         games = Matchup.objects.filter(away=self) | Matchup.objects.filter(home=self)
         losses = 0
         for game in games:
-            if game.win:
-                if game.win != self:
-                    losses += 1
+            if game.win and game.win != self:
+                losses += 1
         return losses
+    @property
+    def image_url(self):
+        if self.logo:
+            return self.logo.url
+        return "http://images.clipartpanda.com/animated-question-mark-for-powerpoint-1256186461796715642question-mark-icon.svg.hi.png"
 
 class Score(models.Model):
     pts = models.FloatField(default=0)
@@ -203,10 +211,11 @@ class Matchup(models.Model):
 
     @property
     def win(self):
-        while timezone.now() > self.tues_end:
-            if self.get_home_score() >= self.get_away_score():
-                return self.home
-            return self.away
+        if timezone.now() < self.tues_end:
+            return ""
+        if self.get_home_score() >= self.get_away_score():
+            return self.home
+        return self.away
 
     def get_home_score(self):
         group = Score.objects.filter(active_squad=self.home)
