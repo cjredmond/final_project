@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{% if request.user.squad %}
+<div class="thumbnail">
+  <img class="matchup-detail-pic" src="{{ MEDIA_URL }}{{ request.user.squad.image_url }}" alt="" />
+</div>
+{% endif %}
 
 <div class="row index-top"></div>
 <div class="row index-logged-in">
