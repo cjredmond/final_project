@@ -104,3 +104,16 @@
 .team-home {
   width: 400px;
 }
+
+.index-top {
+  height: 40px;
+}
+
+.index-btn-logged {
+  width: 200px;
+  height: 200px;
+}
+
+.index-rules-top {
+  text-align: center;
+}

@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sports',
-    'widget_tweaks',
 
 ]
 
@@ -129,9 +128,9 @@ CELERYBEAT_SCHEDULE = {
         'schedule': 10
     },
 }
-CELERYBEAT_SCHEDULE = {
-    'add-every-1-second': {
-        'task': 'sports.tasks.timer',
-        'schedule': 1
-    },
-}
+# CELERYBEAT_SCHEDULE = {
+#     'add-every-1-second': {
+#         'task': 'sports.tasks.timer',
+#         'schedule': 100
+#     },
+# }
