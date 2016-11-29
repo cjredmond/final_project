@@ -9,8 +9,11 @@
     <img class="squad-detail-profile" src="{{ MEDIA_URL }}{{ squad.image_url }}" alt="" />
   </div>
 </div>
-<div class="col m8">
+<div class="col m5">
 {{ squad.name }} <br> <br>{{ wins }} - {{ losses }}
+</div>
+<div class="col m3">
+  <a class="btn-large squad-league-link" href="{% url 'league_detail_view' squad.league.id %}">League</a>
 </div>
   </div>
 </div>

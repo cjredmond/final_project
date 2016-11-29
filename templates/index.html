@@ -20,22 +20,6 @@
   </div>
 </div>
 
-<div class="row rules">
-  <div class="index-rules-top">
-    <h3>Fantasy Sports App</h3>
-    </div>
-    <ul>
-      <li>Draft teams from 4 sports: Soccer, Football, Basketball, Hockey</li>
-      <li>Scoring in real time based on real games</li>
-      <li>Weekly matchups starting at midnight on Tuesdays</li>
-      <li>Add/Drop teams during the season</li>
-      <li>Once a team you own starts playing, you will be stuck with their score!</li>
-    </ul>
-</div>
-
-
-
-
 
 {% if not request.user.is_authenticated %}
 <a class="btn-large index-btn green"href="{% url 'user_create_view' %}">SIGN UP</a>
@@ -68,11 +52,11 @@
     <button type="button" class="btn-large index-btn green">JOIN LEAGUE</button>
     -> Choose a league to join! <br>
   </div>
-  <div class="col m6">
-    <h2>Open Leagues</h2>
+  <div class="col m6 index-league-list">
+    <h4>Open Leagues:</h4>
     {% for league in leagues %}
     {% if league.live == False and league.limit != league.get_squads.count %}
-    <a href="{% url 'league_detail_view' league.id %}">{{ league }}</a>
+    League: <a href="{% url 'league_detail_view' league.id %}">{{ league }}</a>
     {% endif %}
     {% endfor %}
   </div>
@@ -80,7 +64,18 @@
 
 {% endif %}
 
-
+<div class="row rules">
+  <div class="index-rules-top">
+    <h3>Fantasy Sports App</h3>
+    </div>
+    <ul class="index-list">
+      <li>Draft teams from 4 sports: Soccer, Football, Basketball, Hockey</li>
+      <li>Scoring in real time based on real games</li>
+      <li>Weekly matchups starting at midnight on Tuesdays</li>
+      <li>Add/Drop teams during the season</li>
+      <li>Once a team you own starts playing, you will be stuck with their score!</li>
+    </ul>
+</div>
 
 
 

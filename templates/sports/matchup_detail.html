@@ -1,33 +1,43 @@
 {% extends 'base.html' %}
 {% block content %}
-<nav class='blue'>
-  <div class="nav-wrapper">
-    <ul>
-      <li><a href="{% url 'logout' %}">Logout</a></li>
-      <li><a href="{% url 'index_view' %}">Home</a></li>
-      <li><a href="{% url 'league_detail_view' user.squad.league.id%}">League</a></li>
-    </ul>
-  </div>
-</nav>
-<h2>WEEK {{ matchup.week }}</h2>
+
+<h2 class='center-align'>WEEK {{ matchup.week }}</h2>
 {{ matchup.tues_start }} - {{ matchup.tues_end }}
 <hr>
 {% if last_week %}
-<a href="{% url 'matchup_detail_view' last_week.id %}">Last Week</a>
+<a href="{% url 'matchup_detail_view' last_week.id %}">Last Week</a> |
 {% endif %}
+<a href="{% url 'league_detail_view' matchup.league.id %}">Back To League</a> |
 {% if next_week %}
-<a href="{% url 'matchup_detail_view' next_week.id %}">Next Week</a>
+<a href="{% url 'matchup_detail_view' next_week.id %}">Next Week</a> 
 {% endif %}
 
 
 
 <div class="row">
   <div class="col m6">
-    <div class="card blue-grey darken-1">
-      <div class="card-content white-text">
-        {{ matchup.home }}<br>
-        {{ matchup.home.user }}<br>
-        {{ matchup.home.wins }} - {{ matchup.home.losses }}
+    <div class="card matchup-squad-card">
+      <div class="card-content lightgrey">
+        <div class="row row-no-bottom">
+          <div class="col m4">
+            <div class="thumbnail">
+              <img class="matchup-detail-pic" src="{{ MEDIA_URL }}{{ matchup.home.image_url }}" alt="" />
+            </div>
+            </div>
+            <div class="col m5">
+              <div class="matchup-card-details">
+                {{ matchup.home }}<br>
+                {{ matchup.home.user }}<br>
+                {{ matchup.home.wins }} - {{ matchup.home.losses }}
+              </div>
+
+              </div>
+              <div class="col m3">
+                <div class="matchup-card-score">
+                  {{ home_score }}
+                </div>
+            </div>
+        </div>
       </div>
     </div>
 
@@ -68,10 +78,29 @@
 
   </div>
   <div class="col m6">
-    <div class="card-panel">
-      {{ matchup.away }}<br>
-      {{ matchup.away.user }}<br>
-      {{ matchup.away.wins }} - {{ matchup.away.losses }}
+    <div class="card matchup-squad-card">
+      <div class="card-content lightgrey">
+        <div class="row row-no-bottom">
+          <div class="col m4">
+            <div class="thumbnail">
+              <img class="matchup-detail-pic" src="{{ MEDIA_URL }}{{ matchup.away.image_url }}" alt="" />
+            </div>
+            </div>
+            <div class="col m5">
+              <div class="matchup-card-details">
+                {{ matchup.away }}<br>
+                {{ matchup.away.user }}<br>
+                {{ matchup.away.wins }} - {{ matchup.away.losses }}
+              </div>
+
+              </div>
+              <div class="col m3">
+                <div class="matchup-card-score">
+                  {{ away_score }}
+                </div>
+            </div>
+        </div>
+      </div>
     </div>
       <div class="row">
         <div class="row">

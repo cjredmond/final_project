@@ -100,7 +100,7 @@ class Squad(models.Model):
     league = models.ForeignKey(League,null=True,blank=True)
     sched_id = models.IntegerField(null=True,blank=True)
     roster = models.ManyToManyField(Team, blank=True)
-    logo = models.FileField(null=True)
+    logo = models.FileField(null=True, blank=True)
 
     def __str__(self):
         return self.name

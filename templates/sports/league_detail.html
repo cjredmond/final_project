@@ -43,7 +43,7 @@ Start: {{ league.start.date }} End: {{ league.end.date }}<br>
 {% for game in current_games %}
 
 <div class="card-panel league-matchup-box">
-  <div class="row">
+  <div class="row top-card">
     <div class="col m8">
       <div class="row">
         <div class="col m3">
@@ -60,7 +60,7 @@ Start: {{ league.start.date }} End: {{ league.end.date }}<br>
       </div>
       <div class="row">
         <div class="col m3">
-          <div class="thumbnail">
+          <div class="thumbnail league-detail-away-pic">
             <img class="league-detail-pic" src="{{ MEDIA_URL }}{{ game.away.image_url }}" alt="" />
           </div>
         </div>
@@ -73,6 +73,7 @@ Start: {{ league.start.date }} End: {{ league.end.date }}<br>
       </div>
     </div>
     <div class="col m4">
+      <br>
       <a class='btn-large matchup-link' href="{% url 'matchup_detail_view' game.id %}">Matchup</a>
     </div>
   </div>

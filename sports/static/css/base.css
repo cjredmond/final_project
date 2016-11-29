@@ -30,6 +30,25 @@
   background-color: white;
 }
 
+.matchup-detail-pic {
+  height: 80px;
+  width: 100px;
+  padding-bottom: 0px;
+}
+
+.matchup-card-score {
+  font-size: 30px;
+  padding-top: 20px;
+}
+
+.matchup-card-details {
+  padding-top: 10px;
+}
+
+.matchup-squad-card {
+  width: 400px;
+}
+
 .squad-detail-free-agent {
   height: 25px;
   border: 2px solid lightgrey;
@@ -70,23 +89,31 @@
 }
 
 .draft {
-  background-color: lightgrey;
+  background-color: black;
   height: 130vh;
   border: 2px solid darkgrey;
+  color: yellow;
 }
 
 .matchup-link {
-  height: 40px;
+  height: 70px !important;
+  margin-top: 0px !important;
+  padding-top: 5px !important;
 }
 
 .league-matchup-box {
-  height: 100px;
-  font-size: 14px;
+  height: 110px;
+  font-size: 16px;
+  font-family: Tahoma;
 }
 
 .league-detail-pic {
   height: 25px;
   width: 35px;
+}
+
+.league-detail-away-pic {
+  padding-bottom: 5px;
 }
 .draft-side {
   background-color: grey;
@@ -128,6 +155,33 @@
 }
 
 .squad-card {
-  width: 400px;
+  width: 600px;
   font-size: 20px;
+}
+
+.lightgrey {
+  background-color: lightgrey;
+}
+
+.row-no-bottom {
+  padding-bottom: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+.top-card {
+  margin-top: 0px !important!
+}
+
+.squad-league-link {
+  height: 80px;
+}
+
+.index-league-list {
+  height: 200px;
+  border-left: 2px solid black;
+}
+
+.index-list {
+  font-family: sans-serif;;
+  font-size: 22px;
 }
