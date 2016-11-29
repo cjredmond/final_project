@@ -80,6 +80,7 @@ class Team(models.Model):
         return int(ranked) + 1
     def owned_per(self):
         l = League.objects.all().count()
+        #l = l.filter(live=True).count()
         t = Squad.objects.filter(roster=self).count()
         return round(t/l * 100,1)
     def ppg(self):
