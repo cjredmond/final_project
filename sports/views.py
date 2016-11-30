@@ -233,10 +233,10 @@ class DraftView(DetailView):
         hockey = Team.objects.filter(sport="h").exclude(squad__league=target.league)
         football = Team.objects.filter(sport="f").exclude(squad__league=target.league)
         basketball = Team.objects.filter(sport="k").exclude(squad__league=target.league)
-        context['football'] = sorted(football, key=lambda t: -t.total_points())
-        context['basketball'] = sorted(basketball, key=lambda t: -t.total_points())
-        context['hockey'] = sorted(hockey, key=lambda t: -t.ppg())
-        context['soccer'] = sorted(soccer, key=lambda t: -t.total_points())
+        context['football'] = sorted(football, key=lambda t: -t.total_points())[:20]
+        context['basketball'] = sorted(basketball, key=lambda t: -t.total_points())[:20]
+        context['hockey'] = sorted(hockey, key=lambda t: -t.ppg())[:20]
+        context['soccer'] = sorted(soccer, key=lambda t: -t.total_points())[:20]
         counter = Team.objects.filter(squad__league=target.league).count()
         context['checker_s'] = self.request.user.squad.checker('s')
         context['checker_h'] = self.request.user.squad.checker('h')
@@ -245,6 +245,11 @@ class DraftView(DetailView):
         context['counter'] = counter
         context['pick'] = counter + 1
         context['active'] = target.whos_pick(counter+1)
+        context['next'] = target.whos_pick(counter+2)
+        context['third'] = target.whos_pick(counter+3)
+        context['fourth'] = target.whos_pick(counter+4)
+        context['fifth'] = target.whos_pick(counter+5)
+        context['sixth'] = target.whos_pick(counter+6)
         context['clock'] = clock
         if clock.time == 0:
             squad = target.whos_pick(counter+1)

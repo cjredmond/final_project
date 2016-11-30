@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<!-- <meta http-equiv="refresh" content="10"> -->
-<h2 class='center-align'>WEEK {{ matchup.week }}</h2>
+<div class="matchup-background">
+  <br>
+
+
+
+<h3 class='center-align'>WEEK {{ matchup.week }}</h3>
+<div class="indent">
 {{ matchup.tues_start }} - {{ matchup.tues_end }}
 <hr>
 {% if last_week %}
@@ -11,10 +16,12 @@
 {% if next_week %}
 <a href="{% url 'matchup_detail_view' next_week.id %}">Next Week</a>
 {% endif %}
+</div>
 
 
 
 <div class="row">
+
   <div class="col m6">
     <div class="card matchup-squad-card">
       <div class="card-content lightgrey">
@@ -43,11 +50,12 @@
 
     <div class="row">
       <div class="row">
-        <div class="col s1"></div>
+        <div class="col s2"></div>
         <div class="col m8 matchup-score-header">
           {{ matchup.home }} Box Score
         </div>
       </div>
+      <div class="col m1"></div>
       <div class="col m2 matchup-col">
         <ul>
         <li class='matchup-list-top'>SPORT</li>
@@ -78,7 +86,7 @@
 
   </div>
   <div class="col m6">
-    <div class="card matchup-squad-card">
+    <div class="card matchup-squad-card matchup-card-away">
       <div class="card-content lightgrey">
         <div class="row row-no-bottom">
           <div class="col m4">
@@ -104,11 +112,12 @@
     </div>
       <div class="row">
         <div class="row">
-          <div class="col s1"></div>
+          <div class="col m2"></div>
           <div class="col m8 matchup-score-header">
             {{ matchup.away}} Box Score
           </div>
         </div>
+        <div class="col m1"></div>
         <div class="col m2 matchup-col">
           <ul>
           <li class='matchup-list-top'>SPORT</li>
@@ -139,4 +148,5 @@
   </div>
 </div>
 
+</div>
 {% endblock %}

@@ -1,15 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="index-background">
 
-{% if request.user.squad %}
-<div class="thumbnail">
-  <img class="matchup-detail-pic" src="{{ MEDIA_URL }}{{ request.user.squad.image_url }}" alt="" />
-</div>
-{% endif %}
-
-<div class="nfl-background">
-
-</div>
 <div class="row index-top"></div>
 <div class="row index-logged-in">
   <div class="col m2"></div>
@@ -76,15 +68,18 @@
   <div class="index-rules-top">
     <h3>Fantasy Sports App</h3>
     </div>
-    <ul class="index-list nfl-background">
-      <li>-Draft teams from 4 sports: Soccer, Football, Basketball, Hockey</li>
-      <li>-Scoring in real time based on real games</li>
-      <li>-Weekly matchups starting at midnight on Tuesdays</li>
-      <li>-Add/Drop teams during the season</li>
-      <li>-Once a team you own starts playing, you will be stuck with their score!</li>
-    </ul>
-</div>
+    <div class="col s1 index-indent"></div>
+    <div class="col m11">
+      <ul class="index-list">
+        <li>-Draft teams from 4 sports: Soccer, Football, Basketball, Hockey</li>
+        <li>-Scoring in real time based on real games</li>
+        <li>-Weekly matchups starting at midnight on Tuesdays</li>
+        <li>-Add/Drop teams during the season</li>
+      </ul>
+    </div>
 
+</div>
+</div>
 
 
 {% endblock %}

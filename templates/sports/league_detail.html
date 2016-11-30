@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="row league-detail-top">
-
-</div>
+<div class="index-background">
+<div class="row league-detail-top"></div>
 
 <div class="row">
 <div class="col m6">
@@ -97,7 +96,7 @@ Start: {{ league.start.date }} End: {{ league.end.date }}<br>
     </div>
 
 
-    <div class="card">
+    <div class="card standings-card">
     <div class="row league-detail-standings-top">
       <div class="col m2"></div>
       <div class="col m5">Team</div>
@@ -120,6 +119,6 @@ Start: {{ league.start.date }} End: {{ league.end.date }}<br>
   </div>
 </div>
 </div>
-
+</div>
 
 {% endblock %}

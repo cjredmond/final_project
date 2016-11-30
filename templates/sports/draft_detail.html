@@ -3,17 +3,25 @@
 <!-- <meta http-equiv="refresh" content="5" /> -->
 <div class="">
 
-<h2>Pick: {{ pick }}</h2>
-<h4>{{ active }} is on the clock</h4>
-{{ clock.time }}
-{{ hey }}
+<h3>Pick: {{ pick }}</h3>
+<div class="row draft-ticker">
+  <div class="col m2 draft-ticker-team valign-wrapper draft-picking">{{ active }}</div>
+  <div class="col m2 draft-ticker-team valign-wrapper">{{ next }}</div>
+  <div class="col m2 draft-ticker-team valign-wrapper">{{ third }}</div>
+  <div class="col m2 draft-ticker-team valign-wrapper">{{ fourth }}</div>
+  <div class="col m2 draft-ticker-team valign-wrapper">{{ fifth }}</div>
+  <div class="col m2 draft-ticker-team valign-wrapper">{{ sixth }}</div>
+</div>
+<span><h4>{{ active }} is on the clock</h4> <h5>{{ clock.time }} seconds to make a pick</h5></span>
+
+
 
 <hr>
 <div class="row draft">
   <div class="col m10">
 
     <div class="row">
-      <div class="col m3">
+      <div class="col m3 draft-team-list">
         <h5>Hockey</h5>
         {% for team in hockey %}
         {{ team }} {{ team.ppg }}
@@ -62,7 +70,7 @@
   </div>
   <div class="col m2 draft-side">
     {% if not active == user.squad %}
-    <p>{{ active }} picks </p>
+    <p class='draft-side-header'>{{ active }}</p>
     {% for team in active.roster.all %}
     {{ team }}<br>
     {% endfor %}

@@ -47,6 +47,8 @@
 
 .matchup-squad-card {
   width: 400px;
+  margin-left: 40px !important;
+  margin-right: 0px !important;
 }
 
 .squad-detail-free-agent {
@@ -89,10 +91,10 @@
 }
 
 .draft {
-  background-color: black;
-  height: 130vh;
+  background-color: orange;
+  height: 120vh;
   border: 2px solid darkgrey;
-  color: yellow;
+  color: black;
 }
 
 .matchup-link {
@@ -116,8 +118,8 @@
   padding-bottom: 5px;
 }
 .draft-side {
-  background-color: grey;
-  height: 130vh;
+  background-color: lightgrey;
+  height: 120vh;
 }
 
 .index-btn {
@@ -155,8 +157,8 @@
 
 .index-my-team {
   background-image: url('http://ligados32.com/wp-content/uploads/2015/09/huddle.jpg');
-  width: 1000px;
-  height: 1000px;
+  width: 300px;
+  height: 300px;
   padding-top: 40px;
 
 }
@@ -208,3 +210,54 @@
   height: 200px;
   width: 200px;
 }*/
+
+.draft-ticker {
+  height: 40px;
+  background-color: orange;
+}
+.draft-ticker-team {
+  border: 2px solid red;
+  height: 40px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.draft-picking {
+  border: 3px solid red !important;
+  background-color: yellow;
+}
+
+.draft-side-header {
+  font-size: 18px;
+}
+
+.index-background {
+  background-color: #d1e8f9;
+  border-left: 1px solid blue;
+  border-right: 1px solid blue;
+  border-bottom: 1px solid blue;
+  height: 120vh;
+}
+
+.matchup-background {
+  background-color: #d1e8f9;
+  border-left: 1px solid blue;
+  border-right: 1px solid blue;
+  border-bottom: 1px solid blue;
+  height: 150vh;
+}
+
+.index-indent {
+  width: 10px !important;
+}
+
+.standings-card {
+  height: 250px !important;
+}
+
+.matchup-card-away {
+  margin-right: 40px !important;
+}
+.indent {
+  padding-left: 40px;
+}
