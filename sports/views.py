@@ -209,6 +209,9 @@ class SquadDropView(UpdateView):
     model = Squad
     fields = []
     success_url = "/"
+    def get_success_url(self, **kwargs):
+        target = Squad.objects.get(id=self.kwargs['pk'])
+        return reverse('draft_view', args=str(target.league.draft.id))
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         target = Team.objects.get(id=self.kwargs['sk'])
@@ -278,3 +281,6 @@ class SquadJoinView(UpdateView):
         league = League.objects.get(id=self.kwargs['sk'])
         instance.league = league
         return super().form_valid(form)
+
+class RulesView(TemplateView):
+    template_name = 'rules.html'

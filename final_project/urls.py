@@ -4,7 +4,7 @@ from django.contrib import admin
 from sports.views import UserCreateView, IndexView, LeagueCreateView, LeagueUpdateView, \
                          LeagueDetailView, SquadDetailView, MatchupDetailView, \
                          SquadUpdateView, SquadDropView, SquadCreateView, DraftView, \
-                         SquadDraftView, SquadJoinView
+                         SquadDraftView, SquadJoinView, RulesView
 from django.conf.urls.static import static
 
 
@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^squad/create/$', SquadCreateView.as_view(), name='squad_create_view'),
     url(r'^draft/(?P<pk>\d+)/$', DraftView.as_view(), name='draft_view'),
     url(r'^league/(?P<pk>\d+)/join/(?P<sk>\d+)/$', SquadJoinView.as_view(), name='league_join_view'),
+    url(r'^rules/$', RulesView.as_view(), name='rules_view'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

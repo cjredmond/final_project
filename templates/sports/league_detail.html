@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="index-background">
+<div class="league-background">
 <div class="row league-detail-top"></div>
 
 <div class="row">
@@ -91,7 +91,7 @@ Start: {{ league.start.date }} End: {{ league.end.date }}<br>
   <div class="col m6">
     <div class="card-panel">
       {% if league.live %}
-      <a class="waves-effect waves-light btn-large blue team-home"href="{% url 'squad_detail_view' request.user.squad.id %}">Team</a>
+      <a class="waves-effect waves-light btn-large blue team-home"href="{% url 'squad_detail_view' request.user.squad.id %}">Team Clubhouse</a>
       {% endif %}
     </div>
 

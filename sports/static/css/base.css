@@ -53,8 +53,8 @@
 
 .squad-detail-free-agent {
   height: 25px;
-  border: 2px solid lightgrey;
-  border-radius: 10px;
+  border: 1px solid black;
+  border-radius: 6px;
   background-color: lightgreen;
   padding-left: 2px;
 }
@@ -64,6 +64,7 @@
   font-size: 16px;
   border: 2px solid darkgreen;
   border-radius: 5px;
+  margin-bottom: 1px !important;
 }
 
 .squad-detail-team {
@@ -175,6 +176,7 @@
 .squad-card {
   width: 600px;
   font-size: 20px;
+  margin-left: 200px !important;
 }
 
 .lightgrey {
@@ -231,6 +233,15 @@
   font-size: 18px;
 }
 
+.league-background {
+  background-color: #d1e8f9;
+  border-left: 1px solid blue;
+  border-right: 1px solid blue;
+  border-bottom: 1px solid blue;
+  height: 120vh;
+  background-image: url('http://www.bbqsuperstars.com/wp-content/uploads/2011/11/Lambeau-Field-Packers-1024x768.jpg');
+}
+
 .index-background {
   background-color: #d1e8f9;
   border-left: 1px solid blue;
@@ -260,4 +271,8 @@
 }
 .indent {
   padding-left: 40px;
+}
+
+.rules {
+  font-size: 20px;
 }
