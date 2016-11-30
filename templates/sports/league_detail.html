@@ -106,7 +106,7 @@ Start: {{ league.start.date }} End: {{ league.end.date }}<br>
     <div class="row league-detail-standings">
       <div class="col m2"></div>
       <div class="col m5">
-        {% for team in standings %} {{ team }} <br>{% endfor %}
+        {% for team in standings %}<a href="{% url 'squad_detail_view' team.id %}">{{ team }}</a><br>{% endfor %}
       </div>
       <div class="col m1">
         {% for team in standings %} {{ team.wins }}<br> {% endfor %}

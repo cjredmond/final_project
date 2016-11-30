@@ -2,18 +2,25 @@
 {% block content %}
 
 {% if request.user.squad and request.user.squad.league %}
-<h2>{{ target }}</h2> Pts this season: {{ target.total_points }} <br> Sport Rank: {{ target.rank }}<br> PPG: {{ target.ppg }}<br> % Owned: {{ target.owned_per}}
+<h2 class='center-align'>{{ target }}</h2> <div class="center-align matchup-next-links">
+  Pts this season: {{ target.total_points }} <br> Sport Rank: {{ target.rank }}<br> PPG: {{ target.ppg }}<br> % Owned: {{ target.owned_per}}
+</div>
 {% elif not request.user.squad %}
 <h2>Choose a name for your team</h2>
 {% elif request.user.squad and not request.user.squad.league %}
 <h4>Confirm joining this league?</h4>
 {% endif %}
+<div class="row">
+<div class="col m5"></div>
+<div class="col m7">
+  <form class="" action="" method="post" enctype='multipart/form-data'>
+    {% csrf_token %}
+  {{ form }}
+  <input class='btn-large blue' type="submit" name="" value="CONFIRM">
+</div>
+</div>
 
 
-<form class="" action="" method="post" enctype='multipart/form-data'>
-  {% csrf_token %}
-{{ form }}
-<input class='btn-large blue' type="submit" name="" value="CONFIRM">
 
 </form>
 {% endblock %}

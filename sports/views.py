@@ -211,7 +211,7 @@ class SquadDropView(UpdateView):
     success_url = "/"
     def get_success_url(self, **kwargs):
         target = Squad.objects.get(id=self.kwargs['pk'])
-        return reverse('draft_view', args=str(target.league.draft.id))
+        return reverse('squad_detail_view', args=(str(target.id),))
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         target = Team.objects.get(id=self.kwargs['sk'])
