@@ -7,20 +7,23 @@
 </div>
 {% endif %}
 
+<div class="nfl-background">
+
+</div>
 <div class="row index-top"></div>
 <div class="row index-logged-in">
   <div class="col m2"></div>
-  <div class="col m4">
+  <div class="col m4 back-img">
     {% for league in leagues %}
     {% if request.user.squad.league == league %}
-    <a class="btn-large blue index-btn-logged"href="{% url 'league_detail_view' league.id %}">League Home</a>
+    <a class="btn-large index-btn-logged index-league-home"href="{% url 'league_detail_view' league.id %}">League Home</a>
     {% endif %}
     {% endfor %}
   </div>
 
   <div class="col m4">
     {% if request.user.squad.league %}
-    <a class='btn-large blue index-btn-logged' href="{% url 'squad_detail_view' request.user.squad.id %}">My Team</a>
+    <a class='btn-large index-btn-logged index-my-team' href="{% url 'squad_detail_view' request.user.squad.id %}">My Team</a>
     {% endif %}
   </div>
 </div>
@@ -73,7 +76,7 @@
   <div class="index-rules-top">
     <h3>Fantasy Sports App</h3>
     </div>
-    <ul class="index-list">
+    <ul class="index-list nfl-background">
       <li>-Draft teams from 4 sports: Soccer, Football, Basketball, Hockey</li>
       <li>-Scoring in real time based on real games</li>
       <li>-Weekly matchups starting at midnight on Tuesdays</li>

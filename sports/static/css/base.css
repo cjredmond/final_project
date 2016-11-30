@@ -141,8 +141,24 @@
 }
 
 .index-btn-logged {
-  width: 200px;
-  height: 200px;
+  width: 300px !important;
+  height: 300px !important;
+  float: right;
+}
+
+.index-league-home {
+  background-image: url('http://nflrt.com/wp-content/uploads/2014/09/roger-goodell1.jpg');
+  width: 300px;
+  height: 300px;
+  padding-top: 40px;
+}
+
+.index-my-team {
+  background-image: url('http://ligados32.com/wp-content/uploads/2015/09/huddle.jpg');
+  width: 1000px;
+  height: 1000px;
+  padding-top: 40px;
+
 }
 
 .index-rules-top {
@@ -186,3 +202,9 @@
   font-family: sans-serif;;
   font-size: 22px;
 }
+
+/*.back-img {
+  background-image: url('http://www.predictionmachine.com/images/CPNews/Packers-Bears-NFL.jpg');
+  height: 200px;
+  width: 200px;
+}*/
