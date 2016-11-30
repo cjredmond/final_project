@@ -99,44 +99,44 @@ def cal():
             current.active_squad.add(*squads)
             current.save()
 ### FOOTBALL ######
-    items_nfl = nfl_usable_data(fix_names(nfl_scores()))
-    for dictionary in items_nfl:
-        winner = Team.objects.get(city=dictionary['winner'], sport='f')
-        loser = Team.objects.get(city=dictionary['loser'], sport='f')
-        Score.objects.filter(tag=dictionary['tag']).delete()
-
-        x = Score.objects.filter(tag=dictionary['tag'])
-        if x:
-            prev_winner = Score.objects.get(tag=dictionary['tag'], team=winner)
-            y = list(prev_winner.active_squad.all())
-            prev_winner.delete()
-            Score.objects.create(team=winner, pts=dictionary['winner_pts'],tag=dictionary['tag'], time=timezone.now())
-            squads = list(Squad.objects.filter(roster__name=winner.name))
-            current = Score.objects.get(team=winner,tag=dictionary['tag'])
-            current.active_squad.add(*y)
-            current.save()
-
-            prev_loser = Score.objects.get(tag=dictionary['tag'], team=loser)
-            y = list(prev_loser.active_squad.all())
-            prev_loser.delete()
-            Score.objects.create(team=loser, pts=dictionary['loser_pts'],tag=dictionary['tag'], time=timezone.now())
-            current = Score.objects.get(team=loser,tag=dictionary['tag'])
-            current.active_squad.add(*y)
-            current.save()
-
-        else:
-            Score.objects.filter(tag=dictionary['tag']).delete()
-            Score.objects.create(team=winner, pts=dictionary['winner_pts'],tag=dictionary['tag'], time=timezone.now())
-            squads = list(Squad.objects.filter(roster__name=winner.name))
-            current = Score.objects.get(team=winner,tag=dictionary['tag'])
-            current.active_squad.add(*squads)
-            current.save()
-
-            Score.objects.create(team=loser, pts=dictionary['loser_pts'],tag=dictionary['tag'], time=timezone.now())
-            squads = list(Squad.objects.filter(roster__name=loser.name))
-            current = Score.objects.get(team=loser,tag=dictionary['tag'])
-            current.active_squad.add(*squads)
-            current.save()
+    # items_nfl = nfl_usable_data(fix_names(nfl_scores()))
+    # for dictionary in items_nfl:
+    #     winner = Team.objects.get(city=dictionary['winner'], sport='f')
+    #     loser = Team.objects.get(city=dictionary['loser'], sport='f')
+    #     Score.objects.filter(tag=dictionary['tag']).delete()
+    #
+    #     x = Score.objects.filter(tag=dictionary['tag'])
+    #     if x:
+    #         prev_winner = Score.objects.get(tag=dictionary['tag'], team=winner)
+    #         y = list(prev_winner.active_squad.all())
+    #         prev_winner.delete()
+    #         Score.objects.create(team=winner, pts=dictionary['winner_pts'],tag=dictionary['tag'], time=timezone.now())
+    #         squads = list(Squad.objects.filter(roster__name=winner.name))
+    #         current = Score.objects.get(team=winner,tag=dictionary['tag'])
+    #         current.active_squad.add(*y)
+    #         current.save()
+    #
+    #         prev_loser = Score.objects.get(tag=dictionary['tag'], team=loser)
+    #         y = list(prev_loser.active_squad.all())
+    #         prev_loser.delete()
+    #         Score.objects.create(team=loser, pts=dictionary['loser_pts'],tag=dictionary['tag'], time=timezone.now())
+    #         current = Score.objects.get(team=loser,tag=dictionary['tag'])
+    #         current.active_squad.add(*y)
+    #         current.save()
+    #
+    #     else:
+    #         Score.objects.filter(tag=dictionary['tag']).delete()
+    #         Score.objects.create(team=winner, pts=dictionary['winner_pts'],tag=dictionary['tag'], time=timezone.now())
+    #         squads = list(Squad.objects.filter(roster__name=winner.name))
+    #         current = Score.objects.get(team=winner,tag=dictionary['tag'])
+    #         current.active_squad.add(*squads)
+    #         current.save()
+    #
+    #         Score.objects.create(team=loser, pts=dictionary['loser_pts'],tag=dictionary['tag'], time=timezone.now())
+    #         squads = list(Squad.objects.filter(roster__name=loser.name))
+    #         current = Score.objects.get(team=loser,tag=dictionary['tag'])
+    #         current.active_squad.add(*squads)
+    #         current.save()
 
 # @shared_task
 # def timer():

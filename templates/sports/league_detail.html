@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <div class="row league-detail-top">
 
 </div>
@@ -17,6 +18,8 @@ Start: {{ league.start.date }} End: {{ league.end.date }}<br>
 
 {% if league.live == False and leage.limit != amount %}
 {% if not request.user.squad.league %}
+
+<h6>This league runs from {{ league.start.date }} to {{ league.end.date }}</h6><br>
 <a class="btn-large blue" href="{% url 'league_join_view' request.user.squad.id league.id %}">Join!</a>
 {% endif %}
 {% endif %}
@@ -73,7 +76,7 @@ Start: {{ league.start.date }} End: {{ league.end.date }}<br>
       </div>
     </div>
     <div class="col m4">
-      <br>
+
       <a class='btn-large matchup-link' href="{% url 'matchup_detail_view' game.id %}">Matchup</a>
     </div>
   </div>

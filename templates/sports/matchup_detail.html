@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<!-- <meta http-equiv="refresh" content="10"> -->
 <h2 class='center-align'>WEEK {{ matchup.week }}</h2>
 {{ matchup.tues_start }} - {{ matchup.tues_end }}
 <hr>
@@ -9,7 +9,7 @@
 {% endif %}
 <a href="{% url 'league_detail_view' matchup.league.id %}">Back To League</a> |
 {% if next_week %}
-<a href="{% url 'matchup_detail_view' next_week.id %}">Next Week</a> 
+<a href="{% url 'matchup_detail_view' next_week.id %}">Next Week</a>
 {% endif %}
 
 
