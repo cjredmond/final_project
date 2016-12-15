@@ -3,4 +3,4 @@
 -Sports incuded are Football, Basketball, Hockey, and Soccer
 -A users can then join a league with 5 other players
 -Users play a single opponent once a week, the player with the most points at the end of the week is awarded a win
--The league lasts for a length of time that is decided bu the user who created the league
+-The league lasts for a length of time that is decided by the user who created the league
